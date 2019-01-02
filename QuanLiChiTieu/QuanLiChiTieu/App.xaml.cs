@@ -23,7 +23,7 @@ namespace QuanLiChiTieu
         {
             InitializeComponent();
 
-            await NavigationService.NavigateAsync("NavigationPage/RevenueListPage");
+            await NavigationService.NavigateAsync("NavigationPage/MainPage");
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
