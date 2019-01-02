@@ -30,6 +30,7 @@ namespace QuanLiChiTieu
         {
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
+            containerRegistry.RegisterForNavigation<RevenueListPage, RevenueListPageViewModel>();
         }
     }
 }
