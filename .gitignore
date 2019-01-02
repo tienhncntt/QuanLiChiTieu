@@ -3,3 +3,7 @@
 ################################################################################
 
 /.vs
+/QuanLiChiTieu/QuanLiChiTieu/bin/Debug/netstandard2.0
+/QuanLiChiTieu/QuanLiChiTieu/obj
+/QuanLiChiTieu/QuanLiChiTieu.Android/bin/Debug
+/QuanLiChiTieu/QuanLiChiTieu.Android/obj
