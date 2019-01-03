@@ -2,8 +2,62 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:fabControl="clr-namespace:Refractored.FabControl;assembly=Refractored.FabControl"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="QuanLiChiTieu.Views.ExpenditureListPage"
              Title="Chi">
-    <Label Text="Expenditure List"></Label>
+    <StackLayout Padding="15">
+        <SearchBar Placeholder="Tìm kiếm"
+                   HeightRequest="35"
+                   FontSize="Small"/>
+        <ListView HasUnevenRows="True">
+            <ListView.Header>
+                <StackLayout Orientation="Horizontal" 
+                                 VerticalOptions="CenterAndExpand" 
+                                 HorizontalOptions="CenterAndExpand"
+                                 HeightRequest="80">
+                    <Label Text="Tổng chi" 
+                               TextColor="Red"
+                               FontSize="Large"
+                               VerticalTextAlignment="Center"
+                               HorizontalTextAlignment="Center"/>
+                    <Label Text="1000000" 
+                               TextColor="Red"
+                               FontSize="Large"
+                               VerticalTextAlignment="Center"
+                               HorizontalTextAlignment="Center"/>
+                </StackLayout>
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="50"/>
+                            </Grid.RowDefinitions>
+                            <Label Text="{Binding }" Grid.Column="0" Grid.Row="0"
+                                   VerticalTextAlignment="Center" HorizontalTextAlignment="Start"/>
+                            <Label Text="{Binding }" Grid.Column="0" Grid.Row="1"
+                                   VerticalTextAlignment="Center" HorizontalTextAlignment="Start"/>
+                            <Label Text="{Binding }" Grid.Column="1" Grid.Row="0"
+                                   VerticalTextAlignment="Center" HorizontalTextAlignment="End"/>
+                            <Label Text="{Binding }" Grid.Column="1" Grid.Row="1"
+                                   VerticalTextAlignment="Center" HorizontalTextAlignment="End"
+                                   TextColor="Red"/>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <fabControl:FloatingActionButtonView ImageName="btn_add"                                         
+                                          VerticalOptions="End"
+                                          HorizontalOptions="End"
+                                          ColorNormal="#41C09B"
+                                          Command="{Binding ToAdditionPageCommand}"/>
+    </StackLayout>
 </ContentPage>

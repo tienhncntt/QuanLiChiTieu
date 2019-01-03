@@ -6,7 +6,7 @@
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="QuanLiChiTieu.Views.RevenueListPage"
              Title="Thu">
-    <StackLayout>
+    <StackLayout Padding="15">
         <SearchBar Placeholder="Tìm kiếm"
                    HeightRequest="35"
                    FontSize="Small"/>
