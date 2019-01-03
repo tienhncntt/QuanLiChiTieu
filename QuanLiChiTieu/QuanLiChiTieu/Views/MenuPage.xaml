@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                  xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+                  prism:ViewModelLocator.AutowireViewModel="True"
+                  x:Class="QuanLiChiTieu.Views.MenuPage"
+                  Title="Menu">
+
+    <MasterDetailPage.Master>
+        <ContentPage Title="Menu">
+            <StackLayout>
+                <StackLayout BackgroundColor="#41C09B" HeightRequest="60">
+                    <Label Text="Menu" VerticalOptions="CenterAndExpand" 
+                           HorizontalOptions="CenterAndExpand"
+                           VerticalTextAlignment="Center"
+                           HorizontalTextAlignment="Center"
+                           TextColor="White" FontSize="Large"/>
+                </StackLayout>
+                <StackLayout Padding="20">
+                <!-- TODO: // Update the Layout and add some real menu items  -->
+                    <Button Text="Thống kê" BackgroundColor="Transparent"
+                        Command="{Binding NavigationCommand}" CommandParameter="ReportTabbedPage" />
+                    <Button Text="Danh sách thu/chi" BackgroundColor="Transparent"
+                        Command="{Binding NavigationCommand}" CommandParameter="MoneyTabbedPage" />
+                <Button Text="Cài đặt" BackgroundColor="Transparent"
+                        Command="{Binding NavigationCommand}" CommandParameter="SettingPage" />
+                <Button Text="Thông tin ứng dụng" BackgroundColor="Transparent"
+                        Command="{Binding NavigationCommand}" CommandParameter="AboutPage" />
+            </StackLayout>
+            </StackLayout>
+        </ContentPage>
+    </MasterDetailPage.Master>
+    
+</MasterDetailPage>

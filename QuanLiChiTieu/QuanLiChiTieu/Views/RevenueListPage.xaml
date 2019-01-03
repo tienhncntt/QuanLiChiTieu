@@ -5,7 +5,7 @@
              xmlns:fabControl="clr-namespace:Refractored.FabControl;assembly=Refractored.FabControl"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="QuanLiChiTieu.Views.RevenueListPage"
-             Title="Danh sách thu">
+             Title="Thu">
     <StackLayout>
         <SearchBar Placeholder="Tìm kiếm"
                    HeightRequest="35"
@@ -57,6 +57,7 @@
         <fabControl:FloatingActionButtonView ImageName="btn_add"                                         
                                           VerticalOptions="End"
                                           HorizontalOptions="End"
-                                          ColorNormal="#41C09B"/>
+                                          ColorNormal="#41C09B"
+                                          Command="{Binding ToAdditionPageCommand}"/>
     </StackLayout>
 </ContentPage>

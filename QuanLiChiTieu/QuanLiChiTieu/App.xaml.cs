@@ -23,7 +23,7 @@ namespace QuanLiChiTieu
         {
             InitializeComponent();
 
-            await NavigationService.NavigateAsync("NavigationPage/MainPage");
+            await NavigationService.NavigateAsync("MenuPage/NavigationPage/MoneyTabbedPage");
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
@@ -31,6 +31,17 @@ namespace QuanLiChiTieu
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
             containerRegistry.RegisterForNavigation<RevenueListPage, RevenueListPageViewModel>();
+            containerRegistry.RegisterForNavigation<MenuPage, MenuPageViewModel>();
+            containerRegistry.RegisterForNavigation<ReportTabbedPage, ReportTabbedPageViewModel>();
+            containerRegistry.RegisterForNavigation<RevenueReportPage, RevenueReportPageViewModel>();
+            containerRegistry.RegisterForNavigation<ExpenditureReportPage, ExpenditureReportPageViewModel>();
+            containerRegistry.RegisterForNavigation<GenaralReportPage, GenaralReportPageViewModel>();
+            containerRegistry.RegisterForNavigation<ExpenditureListPage, ExpenditureListPageViewModel>();
+            containerRegistry.RegisterForNavigation<SettingPage, SettingPageViewModel>();
+            containerRegistry.RegisterForNavigation<AboutPage, AboutPageViewModel>();
+            containerRegistry.RegisterForNavigation<MoneyDetailPage, MoneyDetailPageViewModel>();
+            containerRegistry.RegisterForNavigation<AdditionPage, AdditionPageViewModel>();
+            containerRegistry.RegisterForNavigation<MoneyTabbedPage, MoneyTabbedPageViewModel>();
         }
     }
 }

@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"          
+            xmlns:views1="clr-namespace:QuanLiChiTieu.Views"
+            prism:ViewModelLocator.AutowireViewModel="True"
+            x:Class="QuanLiChiTieu.Views.ReportTabbedPage"
+            BarBackgroundColor="#41C09B"
+            Title="Thống kê chi tiêu">
+    <TabbedPage.Children>
+        <views1:GenaralReportPage />
+        <views1:RevenueReportPage />
+        <views1:ExpenditureReportPage />
+    </TabbedPage.Children>
+</TabbedPage>

@@ -15,10 +15,10 @@ namespace QuanLiChiTieu.Models
 
         public Database()
         {
-            _connection = DependencyService.Get<ISQLite>().GetConnection();
-            CreateTablle();
-            CreateForm();
-            CreateCategory();
+            //_connection = DependencyService.Get<ISQLite>().GetConnection();
+            //CreateTablle();
+            //CreateForm();
+            //CreateCategory();
         }
 
         private void CreateTablle()
@@ -61,7 +61,11 @@ namespace QuanLiChiTieu.Models
             Category category20 = new Category() { CategoryID = 20, CategoryName = "Điện Thoại", Form = 2 };
             Category category21 = new Category() { CategoryID = 21, CategoryName = "Phương Tiện Di Chuyển", Form = 2 };
             Category category22 = new Category() { CategoryID = 22, CategoryName = "Gia Dụng", Form = 2 };
-            Category category23 = new Category() { CategoryID = 23, CategoryName = "Các Khoản Khác", Form = 2 };
+            Category category23 = new Category() { CategoryID = 23, CategoryName = "Điện Nước, Tiền Nhà", Form = 2 };
+            Category category24 = new Category() { CategoryID = 24, CategoryName = "Học Phí", Form = 2 };
+            Category category25 = new Category() { CategoryID = 25, CategoryName = "Cho vay", Form = 2 };
+            Category category26 = new Category() { CategoryID = 26, CategoryName = "Trả nợ", Form = 2 };
+            Category category27 = new Category() { CategoryID = 27, CategoryName = "Các Khoản Khác", Form = 2 };
 
             _connection.Insert(category1);
             _connection.Insert(category2);
@@ -86,6 +90,10 @@ namespace QuanLiChiTieu.Models
             _connection.Insert(category21);
             _connection.Insert(category22);
             _connection.Insert(category23);
+            _connection.Insert(category24);
+            _connection.Insert(category25);
+            _connection.Insert(category26);
+            _connection.Insert(category27);
         }
 
         public List<Money> ListRevenue()
