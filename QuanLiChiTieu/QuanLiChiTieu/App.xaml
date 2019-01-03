@@ -4,6 +4,8 @@
              xmlns:prism="clr-namespace:Prism.DryIoc;assembly=Prism.DryIoc.Forms"
              x:Class="QuanLiChiTieu.App">
     <Application.Resources>
-
+        <Style TargetType="NavigationPage">
+            <Setter Property="NavigationPage.BarBackgroundColor" Value="#41C09B"></Setter>
+        </Style>
     </Application.Resources>
 </prism:PrismApplication>
