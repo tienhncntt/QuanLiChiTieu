@@ -24,7 +24,7 @@ namespace QuanLiChiTieu
             InitializeComponent();
 
             //await NavigationService.NavigateAsync("MenuPage/NavigationPage/MoneyTabbedPage");
-            await NavigationService.NavigateAsync("MenuPage/NavigationPage/MoneyDetailPage");
+            await NavigationService.NavigateAsync("MenuPage/NavigationPage/MoneyTabbedPage");
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)

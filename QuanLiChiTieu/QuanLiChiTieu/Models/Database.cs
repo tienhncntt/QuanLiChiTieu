@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Common;
 using QuanLiChiTieu.Interface;
 using SQLite;
 using DependencyService = Xamarin.Forms.DependencyService;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace QuanLiChiTieu.Models
 {
@@ -15,10 +13,7 @@ namespace QuanLiChiTieu.Models
 
         public Database()
         {
-            //_connection = DependencyService.Get<ISQLite>().GetConnection();
-            //CreateTablle();
-            //CreateForm();
-            //CreateCategory();
+            _connection = DependencyService.Get<ISQLite>().GetConnection();           
         }
 
         private void CreateTablle()
@@ -28,15 +23,15 @@ namespace QuanLiChiTieu.Models
             _connection.CreateTable<Category>();
         }
 
-        private void CreateForm()
+        private void InsertDefaultForm()
         {
-            Form form1 = new Form() { FormID = 1, FormName = "Thu" };
-            Form form2 = new Form() { FormID = 2, FormName = "Chi" };
+            Form form1 = new Form(){ FormID = 1, FormName = "Thu" };
+            Form form2 = new Form(){ FormID = 2, FormName = "Chi" };
             _connection.Insert(form1);
             _connection.Insert(form2);
         }
 
-        private void CreateCategory()
+        private void InsertDefaultCategory()
         {
             Category category1 = new Category(){CategoryID = 1,CategoryName = "Tiền Lương",Form = 1};
             Category category2 = new Category() { CategoryID = 2, CategoryName = "Tiền Thưởng", Form = 1 };
@@ -125,6 +120,42 @@ namespace QuanLiChiTieu.Models
                         where m.Form == 2 && m.Date.Month == DateTime.Now.Month
                                 select m;
                     return money.ToList();
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public List<Form> ListForms()
+        {
+
+            try
+            {
+                using (_connection)
+                {
+                    return _connection.Table<Form>().ToList();
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public List<Category> ListCategories(int id)
+        {
+
+            try
+            {
+                using (_connection)
+                {
+                    //var categories = from m in _connection.Table<Category>().ToList()
+                    //    where  m.Form == id
+                    //    select m;
+                    //return categories.ToList();
+                    return _connection.Table<Category>().ToList();
                 }
             }
             catch (Exception)
