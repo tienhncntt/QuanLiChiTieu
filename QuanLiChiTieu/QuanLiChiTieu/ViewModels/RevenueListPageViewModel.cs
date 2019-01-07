@@ -14,7 +14,7 @@ namespace QuanLiChiTieu.ViewModels
     {
         private Money _selectedRevenue;
         private List<Money> _revenueList;
-        public Database Database;
+        public Database db;
         private int _sumRevenue;
 
         public int SumRevenue
@@ -41,12 +41,11 @@ namespace QuanLiChiTieu.ViewModels
         public RevenueListPageViewModel(INavigationService navigationService) : base(navigationService)
         {
 
-            Database = new Database();
-            SumRevenue = Database.SumRevenue();
-            RevenueList = Database.ListRevenue();
+            db = new Database();
+            SumRevenue = db.SumRevenue();
+            RevenueList = db.ListRevenue();
             ToAdditionPageCommand = new Command(ToAdditionPage);
             ToMoneyDetailPageCommand = new Command(ToMoneyDetailPage);
-            
         }
 
         private async void ToMoneyDetailPage()
