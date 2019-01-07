@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using ImTools;
 using QuanLiChiTieu.Models;
 using Xamarin.Forms;
 using QuanLiChiTieu.Views;
@@ -91,24 +92,32 @@ namespace QuanLiChiTieu.ViewModels
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             SelectedRevenue = parameters["model"] as Money;
+            AssignValue();
+        }
+
+        private void AssignValue()
+        {
             Name = SelectedRevenue.MoneyName;
             Date = SelectedRevenue.Date;
             Cost = SelectedRevenue.Cost;
             Note = SelectedRevenue.Note;
             FormID = SelectedRevenue.Form;
         }
+
         private async void SaveExecute()
+        {
+            UpdateRevenue();
+            new RevenueListPage();
+            await NavigationService.GoBackAsync();
+        }
+
+        private void UpdateRevenue()
         {
             SelectedRevenue.MoneyName = Name;
             SelectedRevenue.Date = Date;
             SelectedRevenue.Cost = Cost;
             SelectedRevenue.Note = Note;
             Database.Update(SelectedRevenue);
-            await NavigationService.GoBackToRootAsync();
-            //if (FormID == 1)
-            //    NavigationService.NavigateAsync("RevenueListPage");
-            //else
-            //    NavigationService.NavigateAsync("ExpenditureListPage");
         }
     }
 }

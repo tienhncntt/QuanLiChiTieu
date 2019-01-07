@@ -12,7 +12,7 @@
                    HeightRequest="35"
                    FontSize="Small"/>
         <ListView HasUnevenRows="True" 
-                  ItemsSource="{Binding RevenueList}" 
+                  ItemsSource="{Binding RevenueList,Mode =TwoWay}" 
                   SelectedItem="{Binding SelectedRevenue}" 
                   SeparatorColor="#41C09B">
             <ListView.Behaviors>
@@ -29,7 +29,7 @@
                                FontSize="Large"
                                VerticalTextAlignment="Center"
                                HorizontalTextAlignment="Center"/>
-                    <Label Text="{Binding SumCost}" 
+                    <Label Text="{Binding SumRevenue,Mode=TwoWay}" 
                                TextColor="#41C09B"
                                FontSize="Large"
                                VerticalTextAlignment="Center"
@@ -59,7 +59,7 @@
                             <Label Text="{Binding Date, StringFormat='{0:dd/MM/yyyy}'}" Grid.Column="1" Grid.Row="0"
                                    VerticalTextAlignment="Center" HorizontalTextAlignment="End"
                                    FontSize="Medium"/>
-                            <Label Text="{Binding Cost}" Grid.Column="1" Grid.Row="1"
+                            <Label Text="{Binding Cost,Mode=TwoWay}" Grid.Column="1" Grid.Row="1"
                                    VerticalTextAlignment="Center" HorizontalTextAlignment="End"
                                    TextColor="#41C09B"
                                    FontSize="Medium"/>

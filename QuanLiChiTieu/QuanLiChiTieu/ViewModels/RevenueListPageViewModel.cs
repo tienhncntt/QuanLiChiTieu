@@ -10,11 +10,18 @@ using Xamarin.Forms;
 
 namespace QuanLiChiTieu.ViewModels
 {
-    public class RevenueListPageViewModel : BindableBase
+    public class RevenueListPageViewModel : ViewModelBase
     {
         private Money _selectedRevenue;
         private List<Money> _revenueList;
         public Database Database;
+        private int _sumRevenue;
+
+        public int SumRevenue
+        {
+            get => _sumRevenue;
+            set { SetProperty(ref _sumRevenue, value); }
+        }
 
         public Money SelectedRevenue
         {
@@ -30,31 +37,30 @@ namespace QuanLiChiTieu.ViewModels
 
         public ICommand ToAdditionPageCommand { get; set; }
         public ICommand ToMoneyDetailPageCommand { get; set; }
-        private INavigationService _navigationService;
 
-
-        public RevenueListPageViewModel(INavigationService navigationService)
+        public RevenueListPageViewModel(INavigationService navigationService) : base(navigationService)
         {
 
             Database = new Database();
+            SumRevenue = Database.SumRevenue();
             RevenueList = Database.ListRevenue();
-            _navigationService = navigationService;
             ToAdditionPageCommand = new Command(ToAdditionPage);
             ToMoneyDetailPageCommand = new Command(ToMoneyDetailPage);
-
+            
         }
 
         private async void ToMoneyDetailPage()
         {
             var navigationParams = new NavigationParameters();
             navigationParams.Add("model", SelectedRevenue);
-            await _navigationService.NavigateAsync("MoneyDetailPage", navigationParams);
+            await NavigationService.NavigateAsync("MoneyDetailPage", navigationParams);
 
         }
 
         private async void ToAdditionPage()
         {
-            await _navigationService.NavigateAsync("AdditionPage");
+            await NavigationService.NavigateAsync("AdditionPage");
         }
+
     }
 }
