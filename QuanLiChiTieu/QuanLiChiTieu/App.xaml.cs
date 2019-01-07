@@ -26,7 +26,7 @@ namespace QuanLiChiTieu
 
             await CrossMedia.Current.Initialize();
             //await NavigationService.NavigateAsync("MenuPage/NavigationPage/MoneyTabbedPage");
-            await NavigationService.NavigateAsync("MenuPage/NavigationPage/MoneyTabbedPage");
+            await NavigationService.NavigateAsync("MenuPage/NavigationPage/ReportTabbedPage");
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
