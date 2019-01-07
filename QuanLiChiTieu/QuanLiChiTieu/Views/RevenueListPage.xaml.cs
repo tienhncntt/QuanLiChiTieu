@@ -8,5 +8,6 @@ namespace QuanLiChiTieu.Views
         {
             InitializeComponent();
         }
+        
     }
 }
