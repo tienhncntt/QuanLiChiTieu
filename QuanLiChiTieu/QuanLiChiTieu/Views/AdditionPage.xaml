@@ -2,9 +2,15 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:converter="clr-namespace:QuanLiChiTieu.Converter;assembly=QuanLiChiTieu"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="QuanLiChiTieu.Views.AdditionPage"
              Title="Thêm khoản thu/chi">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:ToColorConverter x:Key="ToColorConverter"></converter:ToColorConverter>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ScrollView>
         <Grid Padding="15">
             <Grid.ColumnDefinitions>
@@ -31,7 +37,7 @@
                Grid.Column="0" Grid.Row="1"
                VerticalTextAlignment="Center" HorizontalTextAlignment="Start"/>
             <Picker ItemsSource="{Binding Forms}" ItemDisplayBinding="{Binding FormName}"
-                    SelectedItem="{Binding Form, Mode=OneWayToSource}"
+                    SelectedItem="{Binding Form}"
             Grid.Column="1" Grid.Row="1"/>
 
             <Label Text="Mục" 
@@ -44,7 +50,7 @@
             <Label Text="Số tiền" 
                Grid.Column="0" Grid.Row="3"
                VerticalTextAlignment="Center" HorizontalTextAlignment="Start"/>
-            <Entry Text="{Binding NewMoney.Cost}"
+            <Entry Text="{Binding NewMoney.Cost}" Keyboard="Numeric"
                Grid.Column="1" Grid.Row="3"/>
 
             <Label Text="Ngày thu" 
@@ -61,23 +67,25 @@
 
             <StackLayout Orientation="Horizontal" Grid.Column="0" HeightRequest="150"
                Grid.ColumnSpan="2" Grid.Row="6">
-                <Image HeightRequest="200" HorizontalOptions="CenterAndExpand" Source=""/>
+                <Image HeightRequest="200" HorizontalOptions="EndAndExpand" Source="{Binding Source}"/>
                 <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="EndAndExpand">
                     <ImageButton Source="btn_library" CornerRadius="10" BackgroundColor="#41C09B"
                              HeightRequest="40" WidthRequest="40" VerticalOptions="CenterAndExpand" 
-                             HorizontalOptions="End"/>
+                             HorizontalOptions="End" Command="{Binding TakePictureCommand}"/>
                     <ImageButton Source="btn_camera" CornerRadius="10" BackgroundColor="#41C09B"
                              HeightRequest="40" WidthRequest="40" VerticalOptions="CenterAndExpand" 
-                             HorizontalOptions="End"/>
+                             HorizontalOptions="End" Command="{Binding PickPictureCommand}"/>
                 </StackLayout>
             </StackLayout>
 
             <StackLayout Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="7"
                      Orientation="Horizontal" BackgroundColor="Beige">
                 <Button Text="Làm mới" TextColor="White" BackgroundColor="#41C09B" 
-                    VerticalOptions="Center" HorizontalOptions="FillAndExpand"/>
+                    VerticalOptions="Center" HorizontalOptions="FillAndExpand"
+                    Command="{Binding ClearDataCommand}" CornerRadius="10"/>
                 <Button Text="Tạo" TextColor="White" BackgroundColor="#41C09B" 
-                    VerticalOptions="Center" HorizontalOptions="FillAndExpand"/>
+                    VerticalOptions="Center" HorizontalOptions="FillAndExpand"
+                     CornerRadius="10"/>
             </StackLayout>
 
         </Grid>
