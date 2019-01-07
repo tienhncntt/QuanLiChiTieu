@@ -12,64 +12,67 @@
             <ColumnDefinition Width="7*"/>
         </Grid.ColumnDefinitions>
 
-            <Label Text="Tên khoản"
+        <Label Text="Tên khoản"
                    Grid.Column="0"
                    Grid.Row="0"
                    VerticalOptions="CenterAndExpand"/>
-            <Entry Placeholder="{Binding Name}"
+        <Entry Text="{Binding Name}"
                    Grid.Column="1"
                    Grid.Row="0"
                    VerticalOptions="CenterAndExpand"/>
 
-            <Label Text="Loại"
+        <Label Text="Loại"
                    Grid.Column="0"
                    Grid.Row="1"
                    VerticalOptions="CenterAndExpand"/>
-            <Picker ItemsSource="{Binding ListForm}"
+        <Picker ItemsSource="{Binding Forms}"
                    Grid.Column="1"
                    Grid.Row="1"
                    TextColor="#41C09B"
-                   VerticalOptions="CenterAndExpand"/>
+                   VerticalOptions="CenterAndExpand"
+                   ItemDisplayBinding="{Binding FormName}">
+        </Picker>
 
-            <Label Text="Mục"
+        <Label Text="Mục"
                    Grid.Column="0"
                    Grid.Row="2"
                    VerticalOptions="CenterAndExpand"/>
-            <Picker ItemsSource="{Binding ListCategory}"
+        <Picker ItemsSource="{Binding Categories}"
                     Grid.Column="1"
                     Grid.Row="2"
-                    VerticalOptions="CenterAndExpand"/>
+                    VerticalOptions="CenterAndExpand"
+                    ItemDisplayBinding="{Binding CategoryName}"/>
 
-            <Label Text="Số tiền"
+        <Label Text="Số tiền"
                    Grid.Column="0"
                    Grid.Row="3"
                    VerticalOptions="CenterAndExpand"/>
-            <Entry Placeholder="{Binding Cost}"
+        <Entry Text="{Binding Cost}"
                    Grid.Column="1"
                    Grid.Row="3"
                    TextColor="#41C09B"
                    VerticalOptions="CenterAndExpand"/>
 
-            <Label Text="Ngày thu"
+        <Label Text="Ngày thu"
                    Grid.Column="0"
                    Grid.Row="4"
                    VerticalOptions="CenterAndExpand"/>
-            <DatePicker Date="{Binding Date}"
+        <DatePicker Date="{Binding Date}"
                         Grid.Column="1"
                         Grid.Row="4"
                         VerticalOptions="CenterAndExpand"/>
 
-            <Label Text="Ghi chú"
+        <Label Text="Ghi chú"
                    Grid.Column="0"
                    Grid.Row="5"
                    VerticalOptions="CenterAndExpand"/>
-            <Entry Placeholder="{Binding Note}"
+        <Entry Text="{Binding Note}"
                    Grid.Column="1"
                    Grid.Row="5"
                    VerticalOptions="CenterAndExpand"/>
 
-        
-            <StackLayout Orientation="Horizontal" Grid.Column="0" HeightRequest="150"
+
+        <StackLayout Orientation="Horizontal" Grid.Column="0" HeightRequest="150"
                      Grid.ColumnSpan="2" Grid.Row="6">
             <Image HeightRequest="200" HorizontalOptions="CenterAndExpand"/>
             <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="EndAndExpand">
@@ -81,14 +84,27 @@
                              HorizontalOptions="End"/>
             </StackLayout>
         </StackLayout>
-            <Button Grid.Row="7"
-                    Grid.ColumnSpan="2"
-                    HorizontalOptions="CenterAndExpand"
+        <StackLayout Orientation="Horizontal"
+                     Grid.ColumnSpan="2"
+                     Grid.Row="7">
+            <Button 
+                    HorizontalOptions="EndAndExpand"
                     Text="Lưu và đóng"
                     BackgroundColor="#41C09B"
                     Command="{Binding Save}"
+                    CornerRadius="10"
                     TextColor="White"
                     HeightRequest="20"></Button>
+
+            <Button 
+                    HorizontalOptions="StartAndExpand"
+                    Text="Xóa"
+                    BackgroundColor="#41C09B"
+                    Command="{Binding Delete}"
+                    CornerRadius="10"
+                    TextColor="White"
+                    HeightRequest="20"></Button>
+        </StackLayout>
 
 
     </Grid>

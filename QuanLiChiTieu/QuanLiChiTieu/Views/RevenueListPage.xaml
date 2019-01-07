@@ -5,12 +5,20 @@
              xmlns:fabControl="clr-namespace:Refractored.FabControl;assembly=Refractored.FabControl"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="QuanLiChiTieu.Views.RevenueListPage"
+             xmlns:b="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
              Title="Thu">
     <StackLayout Padding="15">
         <SearchBar Placeholder="Tìm kiếm"
                    HeightRequest="35"
                    FontSize="Small"/>
-        <ListView HasUnevenRows="True">
+        <ListView HasUnevenRows="True" 
+                  ItemsSource="{Binding RevenueList}" 
+                  SelectedItem="{Binding SelectedRevenue}" 
+                  SeparatorColor="#41C09B">
+            <ListView.Behaviors>
+                <b:EventToCommandBehavior EventName="ItemTapped" 
+                                          Command="{Binding ToMoneyDetailPageCommand}"/>
+            </ListView.Behaviors>
             <ListView.Header>
                 <StackLayout Orientation="Horizontal" 
                                  VerticalOptions="CenterAndExpand" 
@@ -21,7 +29,7 @@
                                FontSize="Large"
                                VerticalTextAlignment="Center"
                                HorizontalTextAlignment="Center"/>
-                    <Label Text="1000000" 
+                    <Label Text="{Binding SumCost}" 
                                TextColor="#41C09B"
                                FontSize="Large"
                                VerticalTextAlignment="Center"
@@ -31,33 +39,42 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <Grid>
+                        <Grid Padding="15">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="50*"/>
+                                <ColumnDefinition Width="50*"/>
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="50"/>
                                 <RowDefinition Height="50"/>
                             </Grid.RowDefinitions>
-                            <Label Text="{Binding }" Grid.Column="0" Grid.Row="0"
-                                   VerticalTextAlignment="Center" HorizontalTextAlignment="Start"/>
-                            <Label Text="{Binding }" Grid.Column="0" Grid.Row="1"
-                                   VerticalTextAlignment="Center" HorizontalTextAlignment="Start"/>
-                            <Label Text="{Binding }" Grid.Column="1" Grid.Row="0"
-                                   VerticalTextAlignment="Center" HorizontalTextAlignment="End"/>
-                            <Label Text="{Binding }" Grid.Column="1" Grid.Row="1"
+
+                            <Label Text="{Binding MoneyName}" Grid.Column="0" Grid.Row="0"
+                                   VerticalTextAlignment="Center" HorizontalTextAlignment="Start"
+                                   Font="Bold"
+                                   FontSize="Medium"/>
+                            <Label Text="{Binding Category}" Grid.Column="0" Grid.Row="1"
+                                   VerticalTextAlignment="Center" HorizontalTextAlignment="Start"
+                                   FontSize="Medium"/>
+                            <Label Text="{Binding Date, StringFormat='{0:dd/MM/yyyy}'}" Grid.Column="1" Grid.Row="0"
                                    VerticalTextAlignment="Center" HorizontalTextAlignment="End"
-                                   TextColor="#41C09B"/>
+                                   FontSize="Medium"/>
+                            <Label Text="{Binding Cost}" Grid.Column="1" Grid.Row="1"
+                                   VerticalTextAlignment="Center" HorizontalTextAlignment="End"
+                                   TextColor="#41C09B"
+                                   FontSize="Medium"/>
+
                         </Grid>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
         <fabControl:FloatingActionButtonView ImageName="btn_add"                                         
-                                          VerticalOptions="End"
-                                          HorizontalOptions="End"
-                                          ColorNormal="#41C09B"
-                                          Command="{Binding ToAdditionPageCommand}"/>
+                                             VerticalOptions="End"
+                                             HorizontalOptions="End"
+                                             ColorNormal="#41C09B"
+                                             Command="{Binding ToAdditionPageCommand}">
+        </fabControl:FloatingActionButtonView>
+
     </StackLayout>
 </ContentPage>
