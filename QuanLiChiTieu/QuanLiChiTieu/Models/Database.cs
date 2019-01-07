@@ -13,7 +13,20 @@ namespace QuanLiChiTieu.Models
 
         public Database()
         {
-            _connection = DependencyService.Get<ISQLite>().GetConnection();           
+            _connection =  DependencyService.Get<ISQLite>().GetConnection();
+            try
+            {
+                using (_connection)
+                {
+                    //CreateTablle();
+                    //InsertDefaultCategory();
+                    //InsertDefaultForm();
+                }
+            }
+            catch (Exception)
+            {
+                //return null;
+            }
         }
 
         private void CreateTablle()
@@ -25,15 +38,15 @@ namespace QuanLiChiTieu.Models
 
         private void InsertDefaultForm()
         {
-            Form form1 = new Form(){ FormID = 1, FormName = "Thu" };
-            Form form2 = new Form(){ FormID = 2, FormName = "Chi" };
+            Form form1 = new Form() { FormID = 1, FormName = "Thu" };
+            Form form2 = new Form() { FormID = 2, FormName = "Chi" };
             _connection.Insert(form1);
             _connection.Insert(form2);
         }
 
         private void InsertDefaultCategory()
         {
-            Category category1 = new Category(){CategoryID = 1,CategoryName = "Tiền Lương",Form = 1};
+            Category category1 = new Category() { CategoryID = 1, CategoryName = "Tiền Lương", Form = 1 };
             Category category2 = new Category() { CategoryID = 2, CategoryName = "Tiền Thưởng", Form = 1 };
             Category category3 = new Category() { CategoryID = 3, CategoryName = "Trợ Cấp", Form = 1 };
             Category category4 = new Category() { CategoryID = 4, CategoryName = "Quà tặng", Form = 1 };
@@ -96,7 +109,7 @@ namespace QuanLiChiTieu.Models
             
             try
             {
-                using (_connection)
+                using (var _connection = DependencyService.Get<ISQLite>().GetConnection())
                 {
                     var money = from m in _connection.Table<Money>().ToList()
                         where m.Form == 1 && m.Date.Month == DateTime.Now.Month
@@ -114,7 +127,7 @@ namespace QuanLiChiTieu.Models
         {
             try
             {
-                using (_connection)
+                using (var _connection = DependencyService.Get<ISQLite>().GetConnection())
                 {
                     var money = from m in _connection.Table<Money>().ToList()
                         where m.Form == 2 && m.Date.Month == DateTime.Now.Month
@@ -133,7 +146,7 @@ namespace QuanLiChiTieu.Models
 
             try
             {
-                using (_connection)
+                using (var _connection = DependencyService.Get<ISQLite>().GetConnection())
                 {
                     return _connection.Table<Form>().ToList();
                 }
@@ -149,13 +162,9 @@ namespace QuanLiChiTieu.Models
 
             try
             {
-                using (_connection)
+                using (var _connection = DependencyService.Get<ISQLite>().GetConnection())
                 {
-                    //var categories = from m in _connection.Table<Category>().ToList()
-                    //    where  m.Form == id
-                    //    select m;
-                    //return categories.ToList();
-                    return _connection.Table<Category>().ToList();
+                    return _connection.Table<Category>().Where(x => x.Form == id).ToList();
                 }
             }
             catch (Exception)
@@ -164,11 +173,13 @@ namespace QuanLiChiTieu.Models
             }
         }
 
+        
+
         public bool Insert(Money money)
         {
             try
             {
-                using (_connection)
+                using (var _connection = DependencyService.Get<ISQLite>().GetConnection())
                 {
                     _connection.Insert(money);
                     return true;
@@ -184,7 +195,7 @@ namespace QuanLiChiTieu.Models
         {
             try
             {
-                using (_connection)
+                using (var _connection = DependencyService.Get<ISQLite>().GetConnection())
                 {
                     _connection.Update(money);
                     return true;
@@ -200,7 +211,7 @@ namespace QuanLiChiTieu.Models
         {
             try
             {
-                using (_connection)
+                using (var _connection = DependencyService.Get<ISQLite>().GetConnection())
                 {
                     var money = from m in _connection.Table<Money>().ToList()
                         where m.Form == 1 && m.Date <= lastDate && m.Date >= firstDate
@@ -218,7 +229,7 @@ namespace QuanLiChiTieu.Models
         {
             try
             {
-                using (_connection)
+                using (var _connection = DependencyService.Get<ISQLite>().GetConnection())
                 {
                     var money = from m in _connection.Table<Money>().ToList()
                         where m.Form == 2 && m.Date <= lastDate && m.Date >= firstDate
@@ -236,7 +247,7 @@ namespace QuanLiChiTieu.Models
         {
             try
             {
-                using (_connection)
+                using (var _connection = DependencyService.Get<ISQLite>().GetConnection())
                 {
                     var money = from m in _connection.Table<Money>().ToList()
                         where m.Form == 1 && m.MoneyName == name
@@ -254,7 +265,7 @@ namespace QuanLiChiTieu.Models
         {
             try
             {
-                using (_connection)
+                using (var _connection = DependencyService.Get<ISQLite>().GetConnection())
                 {
                     var money = from m in _connection.Table<Money>().ToList()
                         where m.Form == 2 && m.MoneyName == name
@@ -272,7 +283,7 @@ namespace QuanLiChiTieu.Models
         {
             try
             {
-                using (_connection)
+                using (var _connection = DependencyService.Get<ISQLite>().GetConnection())
                 {
                     var money = from m in _connection.Table<Money>().ToList()
                         where m.Form == 1 && m.Date.Month == DateTime.Now.Month
@@ -290,7 +301,7 @@ namespace QuanLiChiTieu.Models
         {
             try
             {
-                using (_connection)
+                using (var _connection = DependencyService.Get<ISQLite>().GetConnection())
                 {
                     var money = from m in _connection.Table<Money>().ToList()
                         where m.Form == 2 && m.Date.Month == DateTime.Now.Month
