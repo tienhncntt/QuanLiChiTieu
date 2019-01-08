@@ -10,6 +10,7 @@ using QuanLiChiTieu.Models;
 using Xamarin.Forms;
 using QuanLiChiTieu.Views;
 using Xamarin.Forms.Xaml;
+using System.IO;
 
 namespace QuanLiChiTieu.ViewModels
 {
@@ -100,10 +101,25 @@ namespace QuanLiChiTieu.ViewModels
         }
 
         private string _note;
+        private string _titleCategory;
+        private ImageSource _image;
+
         public string Note
         {
             get => _note;
             set { SetProperty(ref _note, value); }
+        }
+
+        public string TitleCategory
+        {
+            get => _titleCategory;
+            set { SetProperty(ref _titleCategory, value); }
+        }
+
+        public ImageSource Image
+        {
+            get => _image;
+            set { SetProperty(ref _image, value); }
         }
 
         public Command Save { get; set; }
@@ -115,9 +131,7 @@ namespace QuanLiChiTieu.ViewModels
             db = new Database();
             Save = new Command(SaveExecute);
             Delete = new Command(DeleteExecute);
-            //Forms = new List<Form>();
-            //Categories = new List<Category>();
-            Category = new Category();
+            //Category = new Category();
             _navigationService = navigationService;
         }
 
@@ -135,7 +149,9 @@ namespace QuanLiChiTieu.ViewModels
             Cost = SelectedRevenue.Cost;
             Note = SelectedRevenue.Note;
             FormID = SelectedRevenue.Form;
-            CategoryID = SelectedRevenue.Category - 1;
+            Categories = db.ListCategories(FormID);
+            TitleCategory = Category.CategoryName;
+            Image = ImageSource.FromStream(() => new MemoryStream(SelectedRevenue.Image));
             if (FormID == 1)
             {
                 Form = "Thu";
@@ -146,23 +162,20 @@ namespace QuanLiChiTieu.ViewModels
                 Form = "Chi";
                 Color = Color.Red;
             }
-
-            Categories = db.ListCategories(FormID);
-            Category = db.SelectedCategory(CategoryID + 1);
+            
         }
 
 
         private async void SaveExecute()
         {
             UpdateRevenue();
-            new RevenueListPage();
             await NavigationService.GoBackAsync();
         }
 
         private async void DeleteExecute()
         {
             db.Delete(SelectedRevenue);
-            await NavigationService.GoBackAsync();
+            await NavigationService.NavigateAsync("RevenueListPage");
         }
 
         private void UpdateRevenue()
@@ -171,6 +184,7 @@ namespace QuanLiChiTieu.ViewModels
             SelectedRevenue.Date = Date;
             SelectedRevenue.Cost = Cost;
             SelectedRevenue.Note = Note;
+            SelectedRevenue.Category = Category.CategoryID;
             db.Update(SelectedRevenue);
         }
     }

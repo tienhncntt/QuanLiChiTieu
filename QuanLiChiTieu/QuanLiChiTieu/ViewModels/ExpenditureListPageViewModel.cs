@@ -12,8 +12,8 @@ namespace QuanLiChiTieu.ViewModels
 {
     public class ExpenditureListPageViewModel : ViewModelBase
     {
-        private Money _selectedExpenditure;
-        private List<Money> _ExpenditureList;
+        private NewMoney _selectedExpenditure;
+        private List<NewMoney> _ExpenditureList;
         public Database db;
         private int _sumExpenditure;
 
@@ -23,13 +23,13 @@ namespace QuanLiChiTieu.ViewModels
             set { SetProperty(ref _sumExpenditure, value); }
         }
 
-        public Money SelectedExpenditure
+        public NewMoney SelectedExpenditure
         {
             get => _selectedExpenditure;
             set { SetProperty(ref _selectedExpenditure, value); }
         }
 
-        public List<Money> ExpenditureList
+        public List<NewMoney> ExpenditureList
         {
             get => _ExpenditureList;
             set { SetProperty(ref _ExpenditureList, value); }
@@ -43,23 +43,35 @@ namespace QuanLiChiTieu.ViewModels
 
             db = new Database();
             SumExpenditure = db.SumExpenditure();
-            ExpenditureList = db.ListExpenditure();
+            ExpenditureList = db.ListNewExpenditure();
             ToAdditionPageCommand = new Command(ToAdditionPage);
             ToMoneyDetailPageCommand = new Command(ToMoneyDetailPage);
-
         }
 
         private async void ToMoneyDetailPage()
         {
             var navigationParams = new NavigationParameters();
-            navigationParams.Add("model", SelectedExpenditure);
+            var SelectedMoney = new Money()
+            {
+                MoneyID = SelectedExpenditure.MoneyID,
+                MoneyName = SelectedExpenditure.MoneyName,
+                Date = SelectedExpenditure.Date,
+                Form = SelectedExpenditure.Form,
+                Category = SelectedExpenditure.CategoryID,
+                Cost = SelectedExpenditure.Cost,
+                Note = SelectedExpenditure.Note,
+                Image = SelectedExpenditure.Image
+            };
+            navigationParams.Add("model", SelectedMoney);
             await NavigationService.NavigateAsync("MoneyDetailPage", navigationParams);
 
         }
 
         private async void ToAdditionPage()
         {
-            await NavigationService.NavigateAsync("AdditionPage");
+            var navigationParams = new NavigationParameters();
+            navigationParams.Add("form", 2);
+            await NavigationService.NavigateAsync("AdditionPage", navigationParams);
         }
 
     }
