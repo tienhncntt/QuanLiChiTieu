@@ -179,7 +179,8 @@ namespace QuanLiChiTieu.ViewModels
                 }
                 return stream;
             });
-            
+
+
         }
 
         private async void PickPicture()
@@ -208,7 +209,7 @@ namespace QuanLiChiTieu.ViewModels
                 }
                 return stream;
             });
-            
+
         }
     }
 }
