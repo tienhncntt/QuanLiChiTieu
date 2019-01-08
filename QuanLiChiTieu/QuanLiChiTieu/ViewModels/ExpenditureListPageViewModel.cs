@@ -69,7 +69,9 @@ namespace QuanLiChiTieu.ViewModels
 
         private async void ToAdditionPage()
         {
-            await NavigationService.NavigateAsync("AdditionPage");
+            var navigationParams = new NavigationParameters();
+            navigationParams.Add("form", 2);
+            await NavigationService.NavigateAsync("AdditionPage", navigationParams);
         }
 
     }

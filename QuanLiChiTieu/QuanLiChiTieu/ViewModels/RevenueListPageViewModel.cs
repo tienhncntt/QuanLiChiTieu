@@ -1,8 +1,4 @@
-﻿using Prism.Commands;
-using Prism.Mvvm;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Windows.Input;
 using Prism.Navigation;
 using QuanLiChiTieu.Models;
@@ -68,7 +64,9 @@ namespace QuanLiChiTieu.ViewModels
 
         private async void ToAdditionPage()
         {
-            await NavigationService.NavigateAsync("AdditionPage");
+            var navigationParams = new NavigationParameters();
+            navigationParams.Add("form", 1);
+            await NavigationService.NavigateAsync("AdditionPage", navigationParams);
         }
 
     }
