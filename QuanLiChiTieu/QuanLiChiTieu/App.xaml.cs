@@ -1,4 +1,5 @@
-﻿using Prism;
+﻿using Plugin.Media;
+using Prism;
 using Prism.Ioc;
 using QuanLiChiTieu.ViewModels;
 using QuanLiChiTieu.Views;
@@ -23,8 +24,9 @@ namespace QuanLiChiTieu
         {
             InitializeComponent();
 
+            await CrossMedia.Current.Initialize();
             //await NavigationService.NavigateAsync("MenuPage/NavigationPage/MoneyTabbedPage");
-            await NavigationService.NavigateAsync("MenuPage/NavigationPage/MoneyTabbedPage");
+            await NavigationService.NavigateAsync("MenuPage/NavigationPage/ReportTabbedPage");
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
