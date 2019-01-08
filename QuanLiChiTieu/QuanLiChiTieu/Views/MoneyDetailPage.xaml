@@ -91,7 +91,7 @@
 
             <StackLayout Orientation="Horizontal" Grid.Column="0" HeightRequest="150"
                      Grid.ColumnSpan="2" Grid.Row="6">
-                <Image HeightRequest="200" HorizontalOptions="EndAndExpand"
+            <Image HeightRequest="200" HorizontalOptions="CenterAndExpand"
                    Source="{Binding Image}"/>
                 <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="EndAndExpand">
                     <ImageButton Source="btn_library" CornerRadius="10" BackgroundColor="#41C09B"
