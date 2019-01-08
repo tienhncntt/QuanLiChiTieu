@@ -8,8 +8,8 @@ namespace QuanLiChiTieu.ViewModels
 {
     public class RevenueListPageViewModel : ViewModelBase
     {
-        private Money _selectedRevenue;
-        private List<Money> _revenueList;
+        private NewMoney _selectedRevenue;
+        private List<NewMoney> _revenueList;
         public Database db;
         private int _sumRevenue;
 
@@ -19,13 +19,13 @@ namespace QuanLiChiTieu.ViewModels
             set { SetProperty(ref _sumRevenue, value); }
         }
 
-        public Money SelectedRevenue
+        public NewMoney SelectedRevenue
         {
             get => _selectedRevenue;
             set { SetProperty(ref _selectedRevenue, value); }
         }
 
-        public List<Money> RevenueList
+        public List<NewMoney> RevenueList
         {
             get => _revenueList;
             set { SetProperty(ref _revenueList, value); }
@@ -36,10 +36,9 @@ namespace QuanLiChiTieu.ViewModels
 
         public RevenueListPageViewModel(INavigationService navigationService) : base(navigationService)
         {
-
             db = new Database();
             SumRevenue = db.SumRevenue();
-            RevenueList = db.ListRevenue();
+            RevenueList = db.ListNewRevenue();
             ToAdditionPageCommand = new Command(ToAdditionPage);
             ToMoneyDetailPageCommand = new Command(ToMoneyDetailPage);
         }
@@ -47,7 +46,18 @@ namespace QuanLiChiTieu.ViewModels
         private async void ToMoneyDetailPage()
         {
             var navigationParams = new NavigationParameters();
-            navigationParams.Add("model", SelectedRevenue);
+            var SelectedMoney = new Money()
+            {
+                MoneyID = SelectedRevenue.MoneyID,
+                MoneyName = SelectedRevenue.MoneyName,
+                Date = SelectedRevenue.Date,
+                Form = SelectedRevenue.Form,
+                Category = SelectedRevenue.CategoryID,
+                Cost = SelectedRevenue.Cost,
+                Note = SelectedRevenue.Note,
+                Image = SelectedRevenue.Image
+            };
+            navigationParams.Add("model", SelectedMoney);
             await NavigationService.NavigateAsync("MoneyDetailPage", navigationParams);
 
         }

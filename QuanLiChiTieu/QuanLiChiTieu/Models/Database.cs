@@ -362,6 +362,65 @@ namespace QuanLiChiTieu.Models
             }
         }
 
+        public List<NewMoney> ListNewRevenue()
+        {
+            try
+            {
+                using (var _connection = DependencyService.Get<ISQLite>().GetConnection())
+                {
+                    var newMoney = from n in _connection.Table<Money>()
+                        join c in _connection.Table<Category>()
+                            on n.Category equals c.CategoryID
+                        where n.Form == 1
+                        select new NewMoney() {MoneyID = n.MoneyID,
+                                               Form = n.Form,
+                                               Date = n.Date,
+                                               CategoryID = n.Category,
+                                               Cost = n.Cost,
+                                               CategoryName = c.CategoryName,
+                                               Note = n.Note,
+                                               MoneyName = n.MoneyName,
+                                               Image = n.Image};
+                    return newMoney.ToList();
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public List<NewMoney> ListNewExpenditure()
+        {
+            try
+            {
+                using (var _connection = DependencyService.Get<ISQLite>().GetConnection())
+                {
+                    var newMoney = from n in _connection.Table<Money>()
+                        join c in _connection.Table<Category>()
+                            on n.Category equals c.CategoryID
+                        where n.Form == 2
+                        select new NewMoney()
+                        {
+                            MoneyID = n.MoneyID,
+                            Form = n.Form,
+                            Date = n.Date,
+                            CategoryID = n.Category,
+                            Cost = n.Cost,
+                            CategoryName = c.CategoryName,
+                            Note = n.Note,
+                            MoneyName = n.MoneyName,
+                            Image = n.Image
+                        };
+                    return newMoney.ToList();
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
         //public List<ReportOutput> ReportRevenue(DateTime firstDate, DateTime lastDate)
         //{
         //    try

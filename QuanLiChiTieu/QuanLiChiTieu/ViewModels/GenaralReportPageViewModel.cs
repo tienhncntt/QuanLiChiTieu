@@ -12,6 +12,7 @@ namespace QuanLiChiTieu.ViewModels
 {
     public class GenaralReportPageViewModel : ViewModelBase
     {
+        #region Khai báo
         private DateTime _fromdate;
 
         public DateTime FromDate
@@ -63,7 +64,7 @@ namespace QuanLiChiTieu.ViewModels
             db = new Database();
             AssignValue();
         }
-
+        #endregion
         private void AssignValue()
         {
             var thisMonth = DateTime.Now.Month;
@@ -77,14 +78,10 @@ namespace QuanLiChiTieu.ViewModels
             {
                 new Entry(SumRevenue)
                 {
-                    //Label = "UWP",
-                    //ValueLabel = "212",
                     Color = SKColor.Parse("#41C09B")
                 },
                 new Entry(SumExpenditure)
                 {
-                    //Label = "Android",
-                    //ValueLabel = "248",
                     Color = SKColor.Parse("#FF0000")
                 }};
             ReportChart = new DonutChart() {Entries = entries};
