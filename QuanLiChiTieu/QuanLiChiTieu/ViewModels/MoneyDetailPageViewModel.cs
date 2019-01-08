@@ -150,7 +150,7 @@ namespace QuanLiChiTieu.ViewModels
             Note = SelectedRevenue.Note;
             FormID = SelectedRevenue.Form;
             Categories = db.ListCategories(FormID);
-            TitleCategory = Category.CategoryName;
+            //TitleCategory = Category.CategoryName;
             Image = ImageSource.FromStream(() => new MemoryStream(SelectedRevenue.Image));
             if (FormID == 1)
             {
