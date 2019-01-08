@@ -171,15 +171,15 @@ namespace QuanLiChiTieu.ViewModels
             Source = ImageSource.FromStream(() =>
             {
                 System.IO.Stream stream = file.GetStream();
-                //file.Dispose();
+                using (var memoryStream = new MemoryStream())
+                {
+                    file.GetStream().CopyTo(memoryStream);
+                    file.Dispose();
+                    imageAsBytes = memoryStream.ToArray();
+                }
                 return stream;
             });
-            using (var memoryStream  = new MemoryStream())
-            {
-                file.GetStream().CopyTo(memoryStream);
-                file.Dispose();
-                imageAsBytes = memoryStream.ToArray();
-            }
+
         }
 
         private async void PickPicture()
@@ -200,15 +200,15 @@ namespace QuanLiChiTieu.ViewModels
             Source = ImageSource.FromStream(() =>
             {
                 System.IO.Stream stream = file.GetStream();
-                //file.Dispose();
+                using (var memoryStream = new MemoryStream())
+                {
+                    file.GetStream().CopyTo(memoryStream);
+                    file.Dispose();
+                    imageAsBytes = memoryStream.ToArray();
+                }
                 return stream;
             });
-            using (var memoryStream = new MemoryStream())
-            {
-                file.GetStream().CopyTo(memoryStream);
-                file.Dispose();
-                imageAsBytes = memoryStream.ToArray();
-            }
+
         }
     }
 }

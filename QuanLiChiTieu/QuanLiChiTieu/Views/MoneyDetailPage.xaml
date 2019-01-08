@@ -5,98 +5,99 @@
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="QuanLiChiTieu.Views.MoneyDetailPage"
              Title="Chi tiết">
-    <Grid Padding="15">
+    <ScrollView>
+        <Grid Padding="15">
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="3*"/>
-            <ColumnDefinition Width="7*"/>
-        </Grid.ColumnDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="7*"/>
+            </Grid.ColumnDefinitions>
 
-        <Label Text="Tên khoản"
+            <Label Text="Tên khoản"
                    Grid.Column="0"
                    Grid.Row="0"
                    VerticalOptions="CenterAndExpand"
                    FontSize="Medium"/>
-        <Entry Text="{Binding Name}"
+            <Entry Text="{Binding Name}"
                    Grid.Column="1"
                    Grid.Row="0"
                    VerticalOptions="CenterAndExpand"/>
 
-        <Label Text="Loại"
+            <Label Text="Loại"
                    Grid.Column="0"
                    Grid.Row="1"
                    VerticalOptions="CenterAndExpand"
                    FontSize="Medium"/>
-        <Label Text="{Binding Form}"
+            <Label Text="{Binding Form}"
                    Grid.Column="1"
                    Grid.Row="1"
                    TextColor="{Binding Color}"
                    VerticalOptions="CenterAndExpand"
                    FontSize="Medium">
-        </Label>
-        <Label Text="Mục"
+            </Label>
+            <Label Text="Mục"
                    Grid.Column="0"
                    Grid.Row="2"
                    VerticalOptions="CenterAndExpand"
                    FontSize="Medium"/>
-        <Picker ItemsSource="{Binding Categories}"
+            <Picker ItemsSource="{Binding Categories}"
                 SelectedItem="{Binding Category, Mode=TwoWay}"
                 Title="{Binding TitleCategory}"
                 Grid.Column="1"
                 Grid.Row="2"
                 VerticalOptions="CenterAndExpand"
                 ItemDisplayBinding="{Binding CategoryName}"/>
-        <Label Text="Số tiền"
+            <Label Text="Số tiền"
                    Grid.Column="0"
                    Grid.Row="3"
                    VerticalOptions="CenterAndExpand"
                    FontSize="Medium"
                    TextColor="{Binding Color}"/>
-        <Entry Text="{Binding Cost}"
+            <Entry Text="{Binding Cost}"
                    Grid.Column="1"
                    Grid.Row="3"
                    TextColor="{Binding Color}"
                    Keyboard="Numeric"
                    VerticalOptions="CenterAndExpand"/>
 
-        <Label Text="Ngày thu"
+            <Label Text="Ngày thu"
                    Grid.Column="0"
                    Grid.Row="4"
                    VerticalOptions="CenterAndExpand"
                    FontSize="Medium"/>
-        <DatePicker Date="{Binding Date}"
+            <DatePicker Date="{Binding Date}"
                         Grid.Column="1"
                         Grid.Row="4"
                         VerticalOptions="CenterAndExpand"/>
 
-        <Label Text="Ghi chú"
+            <Label Text="Ghi chú"
                    Grid.Column="0"
                    Grid.Row="5"
                    VerticalOptions="CenterAndExpand"
                    FontSize="Medium"/>
-        <Entry Text="{Binding Note}"
+            <Entry Text="{Binding Note}"
                    Grid.Column="1"
                    Grid.Row="5"
                    VerticalOptions="CenterAndExpand"/>
 
 
-        <StackLayout Orientation="Horizontal" Grid.Column="0" HeightRequest="150"
+            <StackLayout Orientation="Horizontal" Grid.Column="0" HeightRequest="150"
                      Grid.ColumnSpan="2" Grid.Row="6">
-            <Image HeightRequest="200" HorizontalOptions="CenterAndExpand"
+                <Image HeightRequest="200" HorizontalOptions="CenterAndExpand"
                    Source="{Binding Image}"/>
-            <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="EndAndExpand">
-                <ImageButton Source="btn_library" CornerRadius="10" BackgroundColor="#41C09B"
+                <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="EndAndExpand">
+                    <ImageButton Source="btn_library" CornerRadius="10" BackgroundColor="#41C09B"
                              HeightRequest="40" WidthRequest="40" VerticalOptions="CenterAndExpand" 
                              HorizontalOptions="End"/>
-                <ImageButton Source="btn_camera" CornerRadius="10" BackgroundColor="#41C09B"
+                    <ImageButton Source="btn_camera" CornerRadius="10" BackgroundColor="#41C09B"
                              HeightRequest="40" WidthRequest="40" VerticalOptions="CenterAndExpand" 
                              HorizontalOptions="End"/>
+                </StackLayout>
             </StackLayout>
-        </StackLayout>
-        <StackLayout Orientation="Horizontal"
+            <StackLayout Orientation="Horizontal"
                      Grid.ColumnSpan="2"
                      Grid.Row="7">
-            <Button 
+                <Button 
                     HorizontalOptions="EndAndExpand"
                     Text="Lưu và đóng"
                     BackgroundColor="#41C09B"
@@ -105,7 +106,7 @@
                     TextColor="White"
                     HeightRequest="20"></Button>
 
-            <Button 
+                <Button 
                     HorizontalOptions="StartAndExpand"
                     Text="Xóa"
                     BackgroundColor="#41C09B"
@@ -113,8 +114,7 @@
                     CornerRadius="10"
                     TextColor="White"
                     HeightRequest="20"></Button>
-        </StackLayout>
-
-
-    </Grid>
+            </StackLayout>
+        </Grid>
+    </ScrollView>
 </ContentPage>
