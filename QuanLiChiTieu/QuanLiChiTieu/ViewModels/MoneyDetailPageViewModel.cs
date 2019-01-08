@@ -149,6 +149,7 @@ namespace QuanLiChiTieu.ViewModels
             Cost = SelectedRevenue.Cost;
             Note = SelectedRevenue.Note;
             FormID = SelectedRevenue.Form;
+            Category = db.SelectedCategory(FormID);
             Categories = db.ListCategories(FormID);
             TitleCategory = Category.CategoryName;
             Image = ImageSource.FromStream(() => new MemoryStream(SelectedRevenue.Image));
