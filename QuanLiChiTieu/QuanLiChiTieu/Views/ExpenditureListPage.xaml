@@ -53,7 +53,7 @@
                                    VerticalTextAlignment="Center" HorizontalTextAlignment="Start"
                                    Font="Bold"
                                    FontSize="Medium"/>
-                            <Label Text="{Binding Category}" Grid.Column="0" Grid.Row="1"
+                            <Label Text="{Binding CategoryName}" Grid.Column="0" Grid.Row="1"
                                    VerticalTextAlignment="Center" HorizontalTextAlignment="Start"
                                    FontSize="Medium"/>
                             <Label Text="{Binding Date, StringFormat='{0:dd/MM/yyyy}'}" Grid.Column="1" Grid.Row="0"

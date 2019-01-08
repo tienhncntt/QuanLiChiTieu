@@ -40,12 +40,12 @@
                    VerticalOptions="CenterAndExpand"
                    FontSize="Medium"/>
         <Picker ItemsSource="{Binding Categories}"
-                    Grid.Column="1"
-                    Grid.Row="2"
-                    VerticalOptions="CenterAndExpand"
-                    ItemDisplayBinding="{Binding CategoryName}"
-                    SelectedIndex="{Binding CategoryID}"
-                    SelectedItem="{Binding Category}"/>
+                SelectedItem="{Binding Category, Mode=TwoWay}"
+                Title="{Binding TitleCategory}"
+                Grid.Column="1"
+                Grid.Row="2"
+                VerticalOptions="CenterAndExpand"
+                ItemDisplayBinding="{Binding CategoryName}"/>
         <Label Text="Số tiền"
                    Grid.Column="0"
                    Grid.Row="3"
@@ -81,7 +81,8 @@
 
         <StackLayout Orientation="Horizontal" Grid.Column="0" HeightRequest="150"
                      Grid.ColumnSpan="2" Grid.Row="6">
-            <Image HeightRequest="200" HorizontalOptions="CenterAndExpand"/>
+            <Image HeightRequest="200" HorizontalOptions="CenterAndExpand"
+                   Source="{Binding Image}"/>
             <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="EndAndExpand">
                 <ImageButton Source="btn_library" CornerRadius="10" BackgroundColor="#41C09B"
                              HeightRequest="40" WidthRequest="40" VerticalOptions="CenterAndExpand" 
