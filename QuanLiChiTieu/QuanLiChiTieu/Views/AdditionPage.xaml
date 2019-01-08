@@ -36,8 +36,8 @@
             <Label Text="Loại" 
                Grid.Column="0" Grid.Row="1"
                VerticalTextAlignment="Center" HorizontalTextAlignment="Start"/>
-            <Picker ItemsSource="{Binding Forms}" ItemDisplayBinding="{Binding FormName}"
-                    SelectedItem="{Binding Form}"
+            <Label Text="{Binding Form}" TextColor="{Binding Color}" FontSize="Medium"
+            VerticalTextAlignment="Center" HorizontalTextAlignment="Start"
             Grid.Column="1" Grid.Row="1"/>
 
             <Label Text="Mục" 
@@ -85,7 +85,7 @@
                     Command="{Binding ClearDataCommand}" CornerRadius="10"/>
                 <Button Text="Tạo" TextColor="White" BackgroundColor="#41C09B" 
                     VerticalOptions="Center" HorizontalOptions="FillAndExpand"
-                     CornerRadius="10"/>
+                     CornerRadius="10" Command="{Binding AddNewCommand}"/>
             </StackLayout>
 
         </Grid>
