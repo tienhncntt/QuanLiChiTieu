@@ -180,6 +180,7 @@ namespace QuanLiChiTieu.ViewModels
                 return stream;
             });
 
+
         }
 
         private async void PickPicture()
