@@ -26,6 +26,7 @@ namespace QuanLiChiTieu.Droid
 		
 		public static void UpdateIdValues()
 		{
+			global::Microcharts.Droid.Resource.String.library_name = global::QuanLiChiTieu.Droid.Resource.String.library_name;
 			global::Refractored.Fab.Resource.Attribute.fab_colorDisabled = global::QuanLiChiTieu.Droid.Resource.Attribute.fab_colorDisabled;
 			global::Refractored.Fab.Resource.Attribute.fab_colorNormal = global::QuanLiChiTieu.Droid.Resource.Attribute.fab_colorNormal;
 			global::Refractored.Fab.Resource.Attribute.fab_colorPressed = global::QuanLiChiTieu.Droid.Resource.Attribute.fab_colorPressed;
@@ -8289,6 +8290,9 @@ namespace QuanLiChiTieu.Droid
 			
 			// aapt resource value: 0x7f0b0035
 			public const int character_counter_pattern = 2131427381;
+			
+			// aapt resource value: 0x7f0b003e
+			public const int library_name = 2131427390;
 			
 			// aapt resource value: 0x7f0b0000
 			public const int mr_button_content_description = 2131427328;
