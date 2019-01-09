@@ -11,6 +11,10 @@ using Xamarin.Forms;
 using QuanLiChiTieu.Views;
 using Xamarin.Forms.Xaml;
 using System.IO;
+using System.Windows.Input;
+using Plugin.Media;
+using Plugin.Media.Abstractions;
+using Prism.Services;
 
 namespace QuanLiChiTieu.ViewModels
 {
@@ -20,6 +24,7 @@ namespace QuanLiChiTieu.ViewModels
 
         public Database db;
         private INavigationService _navigationService;
+        private IPageDialogService _pageDialogService;
 
         private Category _category;
         public Category Category
@@ -38,6 +43,7 @@ namespace QuanLiChiTieu.ViewModels
             }
         }
 
+        private byte[] imageAsBytes;
         private List<Category> _categories;
         public List<Category> Categories
         {
@@ -102,7 +108,7 @@ namespace QuanLiChiTieu.ViewModels
 
         private string _note;
         private string _titleCategory;
-        private ImageSource _image;
+        private ImageSource source;
 
         public string Note
         {
@@ -116,23 +122,28 @@ namespace QuanLiChiTieu.ViewModels
             set { SetProperty(ref _titleCategory, value); }
         }
 
-        public ImageSource Image
+        public ImageSource Source
         {
-            get => _image;
-            set { SetProperty(ref _image, value); }
+            get => source;
+            set { SetProperty(ref source, value); }
         }
 
         public Command Save { get; set; }
         public Command Delete { get; set; }
+        public ICommand TakePictureCommand { get; set; }
+        public ICommand PickPictureCommand { get; set; }
         #endregion
 
-        public MoneyDetailPageViewModel(INavigationService navigationService) : base(navigationService)
+        public MoneyDetailPageViewModel(INavigationService navigationService, IPageDialogService pageDialogService) : base(navigationService)
         {
             db = new Database();
             Save = new Command(SaveExecute);
             Delete = new Command(DeleteExecute);
+            TakePictureCommand = new Command(TakePicture);
+            PickPictureCommand = new Command(PickPicture);
             //Category = new Category();
             _navigationService = navigationService;
+            _pageDialogService = pageDialogService;
         }
 
 
@@ -152,7 +163,7 @@ namespace QuanLiChiTieu.ViewModels
             Category = db.SelectedCategory(FormID);
             Categories = db.ListCategories(FormID);
             //TitleCategory = Category.CategoryName;
-            Image = ImageSource.FromStream(() => new MemoryStream(SelectedRevenue.Image));
+            Source = ImageSource.FromStream(() => new MemoryStream(SelectedRevenue.Image));
             if (FormID == 1)
             {
                 Form = "Thu";
@@ -186,7 +197,70 @@ namespace QuanLiChiTieu.ViewModels
             SelectedRevenue.Cost = Cost;
             SelectedRevenue.Note = Note;
             SelectedRevenue.Category = Category.CategoryID;
+            SelectedRevenue.Image = imageAsBytes;
             db.Update(SelectedRevenue);
+        }
+
+        private async void TakePicture()
+        {
+            await CrossMedia.Current.Initialize();
+
+            if (!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsTakePhotoSupported)
+            {
+                await _pageDialogService.DisplayAlertAsync("Notification", "No camera available", "OK");
+                return;
+            }
+
+            var options = new StoreCameraMediaOptions();
+            options.SaveToAlbum = true;
+            options.PhotoSize = PhotoSize.Small;
+
+            var file = await CrossMedia.Current.TakePhotoAsync(
+                options);
+            if (file == null)
+                return;
+            Source = ImageSource.FromStream(() =>
+            {
+                System.IO.Stream stream = file.GetStream();
+                using (var memoryStream = new MemoryStream())
+                {
+                    file.GetStream().CopyTo(memoryStream);
+                    file.Dispose();
+                    imageAsBytes = memoryStream.ToArray();
+                }
+                return stream;
+            });
+
+
+        }
+
+        private async void PickPicture()
+        {
+            await CrossMedia.Current.Initialize();
+
+            if (!CrossMedia.Current.IsPickPhotoSupported)
+            {
+                await _pageDialogService.DisplayAlertAsync("Notification", "Pick Photo is not supprted", "OK");
+                return;
+            }
+
+
+            var file = await CrossMedia.Current.PickPhotoAsync();
+
+            if (file == null)
+                return;
+            Source = ImageSource.FromStream(() =>
+            {
+                System.IO.Stream stream = file.GetStream();
+                using (var memoryStream = new MemoryStream())
+                {
+                    file.GetStream().CopyTo(memoryStream);
+                    file.Dispose();
+                    imageAsBytes = memoryStream.ToArray();
+                }
+                return stream;
+            });
+
         }
     }
 }
