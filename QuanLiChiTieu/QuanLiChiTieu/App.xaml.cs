@@ -25,7 +25,6 @@ namespace QuanLiChiTieu
             InitializeComponent();
 
             await CrossMedia.Current.Initialize();
-            //await NavigationService.NavigateAsync("MenuPage/NavigationPage/MoneyTabbedPage");
             await NavigationService.NavigateAsync("MenuPage/NavigationPage/ReportTabbedPage");
         }
 

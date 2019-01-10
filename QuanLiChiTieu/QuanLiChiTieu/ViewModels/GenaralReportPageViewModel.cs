@@ -80,7 +80,7 @@ namespace QuanLiChiTieu.ViewModels
         public ICommand SetMinCommand { get; set; }
         public ICommand SetMaxCommand { get; set; }
         private IPageDialogService _pageDialogService;
-
+        #endregion
         public GenaralReportPageViewModel(INavigationService navigationService, IPageDialogService pageDialogService) : base(navigationService)
         {
             db = new Database();
@@ -126,7 +126,7 @@ namespace QuanLiChiTieu.ViewModels
             ReportChart = new DonutChart() { Entries = entries };
         }
 
-        #endregion
+       
         private void AssignValue()
         {
             var thisMonth = DateTime.Now.Month;
