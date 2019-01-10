@@ -2,6 +2,7 @@
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using Prism.Navigation;
@@ -13,41 +14,54 @@ namespace QuanLiChiTieu.ViewModels
     public class ExpenditureListPageViewModel : ViewModelBase
     {
         private NewMoney _selectedExpenditure;
-        private List<NewMoney> _ExpenditureList;
+        private ObservableCollection<NewMoney> _ExpenditureList;
         public Database db;
+        private string _revenueName;
+        public string RevenueName
+        {
+            get => _revenueName;
+            set => SetProperty(ref _revenueName, value);
+        }
         private int _sumExpenditure;
 
         public int SumExpenditure
         {
             get => _sumExpenditure;
-            set { SetProperty(ref _sumExpenditure, value); }
+            set => SetProperty(ref _sumExpenditure, value);
         }
 
         public NewMoney SelectedExpenditure
         {
             get => _selectedExpenditure;
-            set { SetProperty(ref _selectedExpenditure, value); }
+            set => SetProperty(ref _selectedExpenditure, value);
         }
 
-        public List<NewMoney> ExpenditureList
+        public ObservableCollection<NewMoney> ExpenditureList
         {
             get => _ExpenditureList;
-            set { SetProperty(ref _ExpenditureList, value); }
+            set => SetProperty(ref _ExpenditureList, value);
         }
 
         public ICommand ToAdditionPageCommand { get; set; }
         public ICommand ToMoneyDetailPageCommand { get; set; }
+        public ICommand SearchCommand { get; set; }
 
         public ExpenditureListPageViewModel(INavigationService navigationService) : base(navigationService)
         {
 
             db = new Database();
             SumExpenditure = db.SumExpenditure();
-            ExpenditureList = db.ListNewExpenditure();
+            ExpenditureList = new ObservableCollection<NewMoney>(db.ListNewExpenditure());
             ToAdditionPageCommand = new Command(ToAdditionPage);
             ToMoneyDetailPageCommand = new Command(ToMoneyDetailPage);
+            SearchCommand = new Command(Search);
         }
 
+        private void Search()
+        {
+            ExpenditureList = new ObservableCollection<NewMoney>();
+            ExpenditureList = new ObservableCollection<NewMoney>(db.Search(RevenueName, 2));
+        }
         private async void ToMoneyDetailPage()
         {
             var navigationParams = new NavigationParameters();

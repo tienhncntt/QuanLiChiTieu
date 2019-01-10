@@ -30,7 +30,7 @@
             <Label Text="Tên khoản" 
                Grid.Column="0" Grid.Row="0"
                VerticalTextAlignment="Center" HorizontalTextAlignment="Start"/>
-            <Entry Text="{Binding NewMoney.MoneyName}"
+            <Entry Text="{Binding NewMoneyName}"
                Grid.Column="1" Grid.Row="0"/>
 
             <Label Text="Loại" 
@@ -50,7 +50,7 @@
             <Label Text="Số tiền" 
                Grid.Column="0" Grid.Row="3"
                VerticalTextAlignment="Center" HorizontalTextAlignment="Start"/>
-            <Entry Text="{Binding NewMoney.Cost}" Keyboard="Numeric"
+            <Entry Text="{Binding NewMoneyCost}" Keyboard="Numeric"
                Grid.Column="1" Grid.Row="3"/>
 
             <Label Text="Ngày thu" 
@@ -65,21 +65,21 @@
             <Editor Text="{Binding NewMoney.Note}" HeightRequest="100"
                 Grid.Column="1" Grid.Row="5"/>
 
-            <StackLayout Orientation="Horizontal" Grid.Column="0" HeightRequest="150"
+            <StackLayout Orientation="Horizontal" Grid.Column="0" HeightRequest="200"
                Grid.ColumnSpan="2" Grid.Row="6">
                 <Image HeightRequest="200" HorizontalOptions="EndAndExpand" Source="{Binding Source}"/>
                 <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="EndAndExpand">
-                    <ImageButton Source="btn_library" CornerRadius="10" BackgroundColor="#41C09B"
-                             HeightRequest="40" WidthRequest="40" VerticalOptions="CenterAndExpand" 
-                             HorizontalOptions="End" Command="{Binding TakePictureCommand}"/>
                     <ImageButton Source="btn_camera" CornerRadius="10" BackgroundColor="#41C09B"
+                                 HeightRequest="40" WidthRequest="40" VerticalOptions="CenterAndExpand" 
+                                 HorizontalOptions="End" Command="{Binding TakePictureCommand}"/>
+                    <ImageButton Source="btn_library" CornerRadius="10" BackgroundColor="#41C09B"
                              HeightRequest="40" WidthRequest="40" VerticalOptions="CenterAndExpand" 
                              HorizontalOptions="End" Command="{Binding PickPictureCommand}"/>
                 </StackLayout>
             </StackLayout>
 
             <StackLayout Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="7"
-                     Orientation="Horizontal" BackgroundColor="Beige">
+                     Orientation="Horizontal">
                 <Button Text="Làm mới" TextColor="White" BackgroundColor="#41C09B" 
                     VerticalOptions="Center" HorizontalOptions="FillAndExpand"
                     Command="{Binding ClearDataCommand}" CornerRadius="10"/>

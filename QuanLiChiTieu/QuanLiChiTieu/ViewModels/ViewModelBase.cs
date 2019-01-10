@@ -15,7 +15,7 @@ namespace QuanLiChiTieu.ViewModels
         public string Title
         {
             get { return _title; }
-            set { SetProperty(ref _title, value); }
+            set => SetProperty(ref _title, value);
         }
 
         public ViewModelBase(INavigationService navigationService)

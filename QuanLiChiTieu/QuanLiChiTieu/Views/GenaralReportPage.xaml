@@ -3,50 +3,67 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              xmlns:forms="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms"
+             xmlns:b="http://prismlibrary.com"
+             xmlns:behaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="QuanLiChiTieu.Views.GenaralReportPage"
              Title="Tổng quan">
-    <StackLayout Orientation="Vertical" Padding="20">
+    <StackLayout Orientation="Vertical" Padding="10">
         <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
             <Label Text="Từ ngày: "
                    FontSize="Medium"
                    VerticalOptions="CenterAndExpand"/>
             <DatePicker Date="{Binding FromDate}"
-                        VerticalOptions="CenterAndExpand"/>
+                        VerticalOptions="CenterAndExpand" 
+                        MaximumDate="{Binding MaxTime}"
+                        >
+                <DatePicker.Behaviors>
+                    <behaviors:EventToCommandBehavior EventName="DateSelected"
+                                                      Command="{Binding SetMinCommand}"/>
+                </DatePicker.Behaviors>
+            </DatePicker>
         </StackLayout>
         <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
             <Label Text="Đến ngày: "
                    FontSize="Medium"
                    VerticalOptions="CenterAndExpand"/>
             <DatePicker Date="{Binding ToDate}"
-                        VerticalOptions="CenterAndExpand"/>
+                        VerticalOptions="CenterAndExpand"
+                        MinimumDate="{Binding MinTime}"
+                        >
+                <DatePicker.Behaviors>
+                    <behaviors:EventToCommandBehavior EventName="DateSelected"
+                                              Command="{Binding SetMaxCommand}"/>
+                </DatePicker.Behaviors>
+            </DatePicker>
         </StackLayout>
         <StackLayout Orientation="Horizontal">
             <Label Text="Tổng thu: "
-                   FontSize="Large"
+                   FontSize="Medium"
                    VerticalOptions="CenterAndExpand"
                    HorizontalOptions="StartAndExpand"/>
             <Label Text="{Binding SumRevenue}"
                    VerticalOptions="CenterAndExpand"
                    HorizontalOptions="EndAndExpand"
-                   FontSize="Large"
+                   FontSize="Medium"
                    TextColor="#41C09B"/>
         </StackLayout>
         <StackLayout Orientation="Horizontal">
             <Label Text="Tổng chi: "
-                   FontSize="Large"
+                   FontSize="Medium"
                    VerticalOptions="CenterAndExpand"
                    HorizontalOptions="StartAndExpand"/>
             <Label Text="{Binding SumExpenditure}"
                    VerticalOptions="CenterAndExpand"
                    HorizontalOptions="EndAndExpand"
-                   FontSize="Large"
+                   FontSize="Medium"
                    TextColor="Red"/>
         </StackLayout>
+
         <forms:ChartView HorizontalOptions="CenterAndExpand"
+                         VerticalOptions="CenterAndExpand"
                          Chart="{Binding ReportChart}"
-                         HeightRequest="200"
-                         WidthRequest="200"
-                         BackgroundColor="White"/>
+                         HeightRequest="230"
+                         WidthRequest="230"/>
     </StackLayout>
 </ContentPage>

@@ -112,9 +112,10 @@ namespace QuanLiChiTieu.Models
                 using (var _connection = DependencyService.Get<ISQLite>().GetConnection())
                 {
                     var money = from m in _connection.Table<Money>().ToList()
+                        orderby m.Date ascending 
                                 where m.Form == 1 && m.Date.Month == DateTime.Now.Month 
                                 select m;
-                    return money.OrderByDescending(p => p.Date).ToList();
+                    return money.ToList();
                 }
             }
             catch (Exception)
@@ -290,37 +291,35 @@ namespace QuanLiChiTieu.Models
             }
         }
 
-        public List<Money> SearchRevenue(string name)
+        public List<NewMoney> Search(string name, int formId)
         {
             try
             {
                 using (var _connection = DependencyService.Get<ISQLite>().GetConnection())
                 {
                     var money = from m in _connection.Table<Money>().ToList()
-                                where m.Form == 1 && m.MoneyName == name
-                                select m;
+                        join c in _connection.Table<Category>()
+                            on m.Category equals c.CategoryID
+                        orderby m.Date descending
+                        where m.MoneyName.ToLower().Contains(name.ToLower()) && m.Form == formId
+                                    
+                        select new NewMoney()
+                        {
+                        MoneyID = m.MoneyID,
+                        Form = m.Form,
+                        Date = m.Date,
+                        CategoryID = m.Category,
+                        Cost = m.Cost,
+                        CategoryName = c.CategoryName,
+                        Note = m.Note,
+                        MoneyName = m.MoneyName,
+                        Image = m.Image
+                        };
                     return money.ToList();
                 }
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-        }
 
-        public List<Money> SearchExpenditure(string name)
-        {
-            try
-            {
-                using (var _connection = DependencyService.Get<ISQLite>().GetConnection())
-                {
-                    var money = from m in _connection.Table<Money>().ToList()
-                                where m.Form == 2 && m.MoneyName == name
-                                select m;
-                    return money.ToList();
-                }
             }
-            catch (Exception)
+            catch (SQLiteException ex)
             {
                 return null;
             }
@@ -371,8 +370,9 @@ namespace QuanLiChiTieu.Models
                     var newMoney = from n in _connection.Table<Money>()
                         join c in _connection.Table<Category>()
                             on n.Category equals c.CategoryID
-                        where n.Form == 1
-                        select new NewMoney() {MoneyID = n.MoneyID,
+                        orderby n.Date descending
+                                   where n.Form == 1 && n.Date.Month == DateTime.Now.Month
+                                   select new NewMoney() {MoneyID = n.MoneyID,
                                                Form = n.Form,
                                                Date = n.Date,
                                                CategoryID = n.Category,
@@ -399,8 +399,9 @@ namespace QuanLiChiTieu.Models
                     var newMoney = from n in _connection.Table<Money>()
                         join c in _connection.Table<Category>()
                             on n.Category equals c.CategoryID
-                        where n.Form == 2
-                        select new NewMoney()
+                        orderby n.Date descending 
+                                   where n.Form == 2 && n.Date.Month == DateTime.Now.Month
+                                   select new NewMoney()
                         {
                             MoneyID = n.MoneyID,
                             Form = n.Form,
@@ -421,25 +422,31 @@ namespace QuanLiChiTieu.Models
             }
         }
 
-        //public List<ReportOutput> ReportRevenue(DateTime firstDate, DateTime lastDate)
-        //{
-        //    try
-        //    {
-        //        using (_connection)
-        //        {
-        //            List<ReportOutput> returnList = new List<ReportOutput>();
-        //            var moneyList = from m in _connection.Table<Money>().ToList()
-        //                where m.Form == 1 && m.Date >= firstDate && m.Date <= lastDate
-        //                group m by m.Category into newGroup                       
-        //                select new{Id=newGroup.Key, Sum = newGroup.Sum(new)};
+        public List<ReportOutput> ListReport(int id)
+        {
+            try
+            {
+                using (var _connection = DependencyService.Get<ISQLite>().GetConnection())
+                {
+                    var output = from n in _connection.Table<Money>()
+                        join c in _connection.Table<Category>()
+                            on n.Category equals c.CategoryID
+                        where n.Form == id && n.Date.Month == DateTime.Now.Month
+                        select new ReportOutput
+                        {
+                             Name = c.CategoryName,
+                             Sum = n.Cost
+                        };
+                    var  sth = output.ToList();
+                    return sth;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
 
-        //        }
-        //    }
-        //    catch (Exception)
-        //    {
-        //        return null;
-        //    }
-        //}
 
     }
 }

@@ -5,5 +5,38 @@
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="QuanLiChiTieu.Views.RevenueReportPage"
              Title="Thu">
-    <Label Text="Revenue Report Page"></Label>
+    <StackLayout Padding="15">
+        <ListView ItemsSource="{Binding ReportOutputList}">
+            <ListView.Header>
+                <StackLayout Orientation="Horizontal" 
+                             VerticalOptions="CenterAndExpand" 
+                             HorizontalOptions="CenterAndExpand"
+                             HeightRequest="60">
+                    <Label Text="Tổng thu" 
+                           TextColor="#41C09B"
+                           FontSize="Large"
+                           VerticalTextAlignment="Center"
+                           HorizontalTextAlignment="Center"/>
+                    <Label Text="{Binding SumRevenue,Mode=TwoWay}" 
+                           TextColor="#41C09B"
+                           FontSize="Large"
+                           VerticalTextAlignment="Center"
+                           HorizontalTextAlignment="Center"/>
+                </StackLayout>
+            </ListView.Header>
+            <ListView.ItemTemplate>
+            <DataTemplate>
+                <ViewCell>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="{Binding Name}" HorizontalOptions="StartAndExpand"
+                               VerticalOptions="Center"/>
+                        <Label Text="{Binding Sum}" HorizontalOptions="End"
+                               VerticalOptions="Center"
+                               TextColor="#41C09B"/>
+                    </StackLayout>
+                </ViewCell>
+             </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+    </StackLayout>
 </ContentPage>
