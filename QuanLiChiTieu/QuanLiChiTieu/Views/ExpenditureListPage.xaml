@@ -10,7 +10,13 @@
     <StackLayout Padding="15">
         <SearchBar Placeholder="Tìm kiếm"
                    HeightRequest="35"
-                   FontSize="Small"/>
+                   FontSize="Small"
+                   Text="{Binding RevenueName}">
+            <SearchBar.Behaviors>
+                <b:EventToCommandBehavior EventName="TextChanged"
+                                          Command="{Binding SearchCommand}"/>
+            </SearchBar.Behaviors>
+        </SearchBar>
         <ListView HasUnevenRows="True" 
                   ItemsSource="{Binding ExpenditureList,Mode =TwoWay}" 
                   SelectedItem="{Binding SelectedExpenditure}" 
@@ -23,7 +29,7 @@
                 <StackLayout Orientation="Horizontal" 
                                  VerticalOptions="CenterAndExpand" 
                                  HorizontalOptions="CenterAndExpand"
-                                 HeightRequest="80">
+                                 HeightRequest="60">
                     <Label Text="Tổng chi" 
                                TextColor="Red"
                                FontSize="Large"
@@ -41,28 +47,28 @@
                     <ViewCell>
                         <Grid Padding="15">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="50*"/>
-                                <ColumnDefinition Width="50*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="50"/>
-                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
 
                             <Label Text="{Binding MoneyName}" Grid.Column="0" Grid.Row="0"
                                    VerticalTextAlignment="Center" HorizontalTextAlignment="Start"
                                    Font="Bold"
-                                   FontSize="Medium"/>
+                                   FontSize="Small"/>
                             <Label Text="{Binding CategoryName}" Grid.Column="0" Grid.Row="1"
                                    VerticalTextAlignment="Center" HorizontalTextAlignment="Start"
-                                   FontSize="Medium"/>
+                                   FontSize="Small"/>
                             <Label Text="{Binding Date, StringFormat='{0:dd/MM/yyyy}'}" Grid.Column="1" Grid.Row="0"
                                    VerticalTextAlignment="Center" HorizontalTextAlignment="End"
-                                   FontSize="Medium"/>
+                                   FontSize="Small"/>
                             <Label Text="{Binding Cost,Mode=TwoWay}" Grid.Column="1" Grid.Row="1"
                                    VerticalTextAlignment="Center" HorizontalTextAlignment="End"
                                    TextColor="Red"
-                                   FontSize="Medium"/>
+                                   FontSize="Small"/>
 
                         </Grid>
                     </ViewCell>

@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows.Input;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
 using Prism.Commands;
-using Prism.Mvvm;
 using Prism.Navigation;
 using Prism.Services;
 using QuanLiChiTieu.Models;
@@ -23,6 +22,20 @@ namespace QuanLiChiTieu.ViewModels
         {
             get => _newMoney;
             set => SetProperty(ref _newMoney, value);
+        }
+
+        private string _newMoneyName;
+        public string NewMoneyName
+        {
+            get => _newMoneyName;
+            set => SetProperty(ref _newMoneyName, value);
+        }
+
+        private int _newMoneyCost;
+        public int NewMoneyCost
+        {
+            get => _newMoneyCost;
+            set => SetProperty(ref _newMoneyCost, value);
         }
 
         private string _form;
@@ -46,11 +59,11 @@ namespace QuanLiChiTieu.ViewModels
             set => SetProperty(ref _paramId, value);
         }
 
-        private List<Category> _categories;
-        public List<Category> Categories
+        private ObservableCollection<Category> _categories;
+        public ObservableCollection<Category> Categories
         {
             get => _categories;
-            set { SetProperty(ref _categories, value); }
+            set => SetProperty(ref _categories, value);
         }
 
         private Category _category;
@@ -59,12 +72,14 @@ namespace QuanLiChiTieu.ViewModels
             get => _category;
             set => SetProperty(ref _category, value);
         }
-        private ImageSource source;
+        private ImageSource _source;
         public ImageSource Source
         {
-            get { return source; }
-            set { SetProperty(ref source, value, "Source"); }
+            get { return _source; }
+            set => SetProperty(ref _source, value);
         }
+
+        private byte[] _imageAsBytes { get; set; }
 
         public ICommand AddNewCommand { get; set; }
         public ICommand ClearDataCommand { get; set; }
@@ -75,18 +90,16 @@ namespace QuanLiChiTieu.ViewModels
         private IPageDialogService _pageDialogService;
         #endregion
 
-        private byte[] imageAsBytes;
-
-        private bool isExe = false;
         public AdditionPageViewModel(INavigationService navigationService, IPageDialogService pageDialogService) : base(navigationService)
         {
             NewMoney = new Money(){Date = DateTime.Now};
-            Categories = new List<Category>();
+            Categories = new ObservableCollection<Category>();
             Category = new Category();
             Color = new Color();
             TakePictureCommand = new Command(TakePicture);
             PickPictureCommand = new Command(PickPicture);
-            AddNewCommand = new DelegateCommand(AddNew, CanExe).ObservesProperty(() => Category);
+            AddNewCommand = new DelegateCommand(AddNew, CanExe).ObservesProperty((() => Category))
+                .ObservesProperty((() => NewMoneyName)).ObservesProperty((() => NewMoneyCost));
             ClearDataCommand = new Command(ClearData);
             db = new Database();
             _navigationService = navigationService;
@@ -94,7 +107,7 @@ namespace QuanLiChiTieu.ViewModels
         }
         private bool CanExe()
         {
-            if (Category != null)
+            if (Category != null && NewMoneyCost > 0 && !string.IsNullOrEmpty(NewMoneyName))
             {
                 return true;
             }
@@ -124,7 +137,7 @@ namespace QuanLiChiTieu.ViewModels
             {
                 Form = "Thu";
                 Color = Color.FromHex("#41C09B");
-                Categories = db.ListCategories(ParamId);
+                Categories = new ObservableCollection<Category>(db.ListCategories(ParamId));
 
 
             }
@@ -132,19 +145,17 @@ namespace QuanLiChiTieu.ViewModels
             {
                 Form = "Chi";
                 Color = Color.Red;
-                Categories = db.ListCategories(ParamId);
+                Categories = new ObservableCollection<Category>(db.ListCategories(ParamId));
             }
         }
 
         private void AddNew()
         {
-            if (NewMoney.Cost < 0)
-            {
-                NewMoney.Cost *= -1;
-            }
             NewMoney.Form = ParamId;
             NewMoney.Category = Category.CategoryID;
-            NewMoney.Image = imageAsBytes;
+            NewMoney.MoneyName = NewMoneyName;
+            NewMoney.Cost = NewMoneyCost;
+            NewMoney.Image = _imageAsBytes;
             db.Insert(NewMoney);
             _pageDialogService.DisplayAlertAsync("Thông báo", "Thêm thành công", "OK");
             _navigationService.GoBackAsync();
@@ -170,12 +181,12 @@ namespace QuanLiChiTieu.ViewModels
                 return;
             Source = ImageSource.FromStream(() =>
             {
-                System.IO.Stream stream = file.GetStream();
+                var stream = file.GetStream();
                 using (var memoryStream = new MemoryStream())
                 {
                     file.GetStream().CopyTo(memoryStream);
                     file.Dispose();
-                    imageAsBytes = memoryStream.ToArray();
+                    _imageAsBytes = memoryStream.ToArray();
                 }
                 return stream;
             });
@@ -200,12 +211,12 @@ namespace QuanLiChiTieu.ViewModels
                 return;
             Source = ImageSource.FromStream(() =>
             {
-                System.IO.Stream stream = file.GetStream();
+                var stream = file.GetStream();
                 using (var memoryStream = new MemoryStream())
                 {
                     file.GetStream().CopyTo(memoryStream);
                     file.Dispose();
-                    imageAsBytes = memoryStream.ToArray();
+                    _imageAsBytes = memoryStream.ToArray();
                 }
                 return stream;
             });

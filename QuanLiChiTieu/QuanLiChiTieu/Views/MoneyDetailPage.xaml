@@ -21,6 +21,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
             <Label Text="Tên khoản"
@@ -61,8 +62,7 @@
                    Grid.Column="0"
                    Grid.Row="3"
                    VerticalOptions="CenterAndExpand"
-                   FontSize="Medium"
-                   TextColor="{Binding Color}"/>
+                   FontSize="Medium"/>
             <Entry Text="{Binding Cost}"
                    Grid.Column="1"
                    Grid.Row="3"
@@ -91,39 +91,28 @@
                    VerticalOptions="CenterAndExpand"/>
 
 
-            <StackLayout Orientation="Horizontal" Grid.Column="0" HeightRequest="150"
+            <StackLayout Orientation="Horizontal" Grid.Column="0" HeightRequest="200"
                      Grid.ColumnSpan="2" Grid.Row="6">
-                <Image HeightRequest="200" HorizontalOptions="CenterAndExpand"
-                   Source="{Binding Source}"/>
+                <Image HeightRequest="200" HorizontalOptions="EndAndExpand"
+                           Source="{Binding Source}"/>
                 <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="EndAndExpand">
+                    <ImageButton Source="btn_camera" CornerRadius="10" BackgroundColor="#41C09B"
+                                 HeightRequest="40" WidthRequest="40" VerticalOptions="CenterAndExpand" 
+                                 HorizontalOptions="End" Command="{Binding TakePictureCommand}"/>
                     <ImageButton Source="btn_library" CornerRadius="10" BackgroundColor="#41C09B"
                              HeightRequest="40" WidthRequest="40" VerticalOptions="CenterAndExpand" 
                              HorizontalOptions="End" Command="{Binding PickPictureCommand}"/>
-                    <ImageButton Source="btn_camera" CornerRadius="10" BackgroundColor="#41C09B"
-                             HeightRequest="40" WidthRequest="40" VerticalOptions="CenterAndExpand" 
-                             HorizontalOptions="End" Command="{Binding TakePictureCommand}"/>
                 </StackLayout>
             </StackLayout>
-            <StackLayout Orientation="Horizontal"
-                     Grid.ColumnSpan="2"
-                     Grid.Row="7">
-                <Button 
-                    HorizontalOptions="EndAndExpand"
-                    Text="Lưu và đóng"
-                    BackgroundColor="#41C09B"
-                    Command="{Binding Save}"
-                    CornerRadius="10"
-                    TextColor="White"
-                    HeightRequest="20"></Button>
 
-                <Button 
-                    HorizontalOptions="StartAndExpand"
-                    Text="Xóa"
-                    BackgroundColor="#41C09B"
-                    Command="{Binding Delete}"
-                    CornerRadius="10"
-                    TextColor="White"
-                    HeightRequest="20"></Button>
+            <StackLayout Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="7"
+                         Orientation="Horizontal">
+                <Button Text="Cập nhật" TextColor="White" BackgroundColor="#41C09B" 
+                        VerticalOptions="Center" HorizontalOptions="FillAndExpand"
+                        Command="{Binding Save}" CornerRadius="10"/>
+                <Button Text="Xóa" TextColor="White" BackgroundColor="#41C09B" 
+                        VerticalOptions="Center" HorizontalOptions="FillAndExpand"
+                        CornerRadius="10" Command="{Binding Delete}"/>
             </StackLayout>
         </Grid>
     </ScrollView>
