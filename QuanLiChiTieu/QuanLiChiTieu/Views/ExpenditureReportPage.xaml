@@ -12,7 +12,7 @@
                              VerticalOptions="CenterAndExpand" 
                              HorizontalOptions="CenterAndExpand"
                              HeightRequest="60">
-                    <Label Text="Tổng thu" 
+                    <Label Text="Tổng chi" 
                            TextColor="Red"
                            FontSize="Large"
                            VerticalTextAlignment="Center"
