@@ -27,11 +27,18 @@ namespace QuanLiChiTieu.ViewModels
         private INavigationService _navigationService;
         private IPageDialogService _pageDialogService;
 
-        private Category _category;
-        public Category Category
+        private Category _selectedCategory;
+
+        public Category SelectedCategory
         {
-            get => _category;
-            set => SetProperty(ref _category, value);
+            get { return _selectedCategory; }
+            set
+            {
+                if (_selectedCategory != value)
+                {
+                    SetProperty(ref _selectedCategory, value);
+                }
+            }
         }
 
         private string _form;
@@ -133,7 +140,6 @@ namespace QuanLiChiTieu.ViewModels
             Delete = new Command(DeleteExecute);
             TakePictureCommand = new Command(TakePicture);
             PickPictureCommand = new Command(PickPicture);
-            //Category = new Category();
             _navigationService = navigationService;
             _pageDialogService = pageDialogService;
         }
@@ -162,8 +168,8 @@ namespace QuanLiChiTieu.ViewModels
             Cost = SelectedMoney.Cost;
             Note = SelectedMoney.Note;
             FormID = SelectedMoney.Form;
-            Category = db.SelectedCategory(SelectedMoney.Category);
-            Categories = new ObservableCollection<Category>(db.ListCategories(FormID)); 
+            Categories = new ObservableCollection<Category>(db.ListCategories(FormID));
+            SelectedCategory = Categories[SelectedMoney.Category - 1];
             //TitleCategory = Category.CategoryName;
             Source = ImageSource.FromStream(() => new MemoryStream(SelectedMoney.Image));
             if (FormID == 1)
@@ -188,9 +194,12 @@ namespace QuanLiChiTieu.ViewModels
 
         private async void DeleteExecute()
         {
+            
             db.Delete(SelectedMoney);
-            _pageDialogService.DisplayAlertAsync("Thông báo", "Xoá thành công", "OK");
+            await _pageDialogService.DisplayAlertAsync("Thông báo", "Xoá thành công", "OK");
             await NavigationService.GoBackAsync();
+
+
         }
 
         private void UpdateRevenue()
@@ -203,8 +212,8 @@ namespace QuanLiChiTieu.ViewModels
             }
             SelectedMoney.Cost = Cost;
             SelectedMoney.Note = Note;
-            SelectedMoney.Category = Category.CategoryID;
-            //SelectedRevenue.Image = imageAsBytes;
+            SelectedMoney.Category = SelectedCategory.CategoryID;
+            //SelectedMoney.Image = imageAsBytes;
             db.Update(SelectedMoney);
             _pageDialogService.DisplayAlertAsync("Thông báo", "Cập nhật thành công", "OK");
         }

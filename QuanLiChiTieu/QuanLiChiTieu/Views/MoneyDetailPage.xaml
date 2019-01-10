@@ -52,12 +52,12 @@
                    VerticalOptions="CenterAndExpand"
                    FontSize="Medium"/>
             <Picker ItemsSource="{Binding Categories}"
-                SelectedItem="{Binding Category, Mode=TwoWay}"
-                Title="{Binding TitleCategory}"
-                Grid.Column="1"
-                Grid.Row="2"
-                VerticalOptions="CenterAndExpand"
-                ItemDisplayBinding="{Binding CategoryName}"/>
+                    SelectedItem="{Binding SelectedCategory, Mode=TwoWay}"
+                    ItemDisplayBinding="{Binding CategoryName}"
+                    Title="Chọn mục"
+                    Grid.Column="1"
+                    Grid.Row="2"
+                    VerticalOptions="CenterAndExpand"/>
             <Label Text="Số tiền"
                    Grid.Column="0"
                    Grid.Row="3"

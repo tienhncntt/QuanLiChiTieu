@@ -45,7 +45,8 @@
                VerticalTextAlignment="Center" HorizontalTextAlignment="Start"/>
             <Picker ItemsSource="{Binding Categories}" ItemDisplayBinding="{Binding CategoryName}"
                 SelectedItem="{Binding Category}"
-                Grid.Column="1" Grid.Row="2"/>
+                Grid.Column="1" Grid.Row="2"
+                Title="Chọn mục"/>
 
             <Label Text="Số tiền" 
                Grid.Column="0" Grid.Row="3"
