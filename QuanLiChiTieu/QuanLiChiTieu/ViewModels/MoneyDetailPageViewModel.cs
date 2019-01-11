@@ -169,18 +169,20 @@ namespace QuanLiChiTieu.ViewModels
             Note = SelectedMoney.Note;
             FormID = SelectedMoney.Form;
             Categories = new ObservableCollection<Category>(db.ListCategories(FormID));
-            SelectedCategory = Categories[SelectedMoney.Category - 1];
+            
             //TitleCategory = Category.CategoryName;
             Source = ImageSource.FromStream(() => new MemoryStream(SelectedMoney.Image));
             if (FormID == 1)
             {
                 Form = "Thu";
                 Color = Color.FromHex("#41C09B");
+                SelectedCategory = Categories[SelectedMoney.Category - 1];
             }
             else
             {
                 Form = "Chi";
                 Color = Color.Red;
+                SelectedCategory = Categories[SelectedMoney.Category - 13];
             }
             
         }

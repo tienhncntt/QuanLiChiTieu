@@ -158,7 +158,7 @@ namespace QuanLiChiTieu.ViewModels
             NewMoney.Image = _imageAsBytes;
             db.Insert(NewMoney);
             _pageDialogService.DisplayAlertAsync("Thông báo", "Thêm thành công", "OK");
-            _navigationService.GoBackAsync();
+            _navigationService.GoBackAsync(parameters: null);
         }
 
         private async void TakePicture()
