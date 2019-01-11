@@ -7104,7 +7104,7 @@ namespace QuanLiChiTieu.Droid
 			public const int ic_vol_type_tv_light = 2130837777;
 			
 			// aapt resource value: 0x7f020112
-			public const int Laucher = 2130837778;
+			public const int icon_chart = 2130837778;
 			
 			// aapt resource value: 0x7f020113
 			public const int icon_info = 2130837779;
@@ -7116,7 +7116,7 @@ namespace QuanLiChiTieu.Droid
 			public const int icon_setting = 2130837781;
 			
 			// aapt resource value: 0x7f020116
-			public const int Launcher = 2130837782;
+			public const int Laucher = 2130837782;
 			
 			// aapt resource value: 0x7f020117
 			public const int mr_button_connected_dark = 2130837783;
