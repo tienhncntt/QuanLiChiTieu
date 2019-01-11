@@ -27,11 +27,18 @@ namespace QuanLiChiTieu.ViewModels
         private INavigationService _navigationService;
         private IPageDialogService _pageDialogService;
 
-        private Category _category;
-        public Category Category
+        private Category _selectedCategory;
+
+        public Category SelectedCategory
         {
-            get => _category;
-            set => SetProperty(ref _category, value);
+            get { return _selectedCategory; }
+            set
+            {
+                if (_selectedCategory != value)
+                {
+                    SetProperty(ref _selectedCategory, value);
+                }
+            }
         }
 
         private string _form;
@@ -50,7 +57,7 @@ namespace QuanLiChiTieu.ViewModels
         }
 
         private Money _money;
-        public Money SelectedRevenue
+        public Money SelectedMoney
         {
             get => _money;
             set => SetProperty(ref _money, value);
@@ -133,7 +140,6 @@ namespace QuanLiChiTieu.ViewModels
             Delete = new Command(DeleteExecute);
             TakePictureCommand = new Command(TakePicture);
             PickPictureCommand = new Command(PickPicture);
-            //Category = new Category();
             _navigationService = navigationService;
             _pageDialogService = pageDialogService;
         }
@@ -151,21 +157,21 @@ namespace QuanLiChiTieu.ViewModels
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
-            SelectedRevenue = parameters["model"] as Money;
+            SelectedMoney = parameters["model"] as Money;
             AssignValue();
         }
 
         private void AssignValue()
         {
-            Name = SelectedRevenue.MoneyName;
-            Date = SelectedRevenue.Date;
-            Cost = SelectedRevenue.Cost;
-            Note = SelectedRevenue.Note;
-            FormID = SelectedRevenue.Form;
-            Category = db.SelectedCategory(FormID);
-            Categories = new ObservableCollection<Category>(db.ListCategories(FormID)); 
+            Name = SelectedMoney.MoneyName;
+            Date = SelectedMoney.Date;
+            Cost = SelectedMoney.Cost;
+            Note = SelectedMoney.Note;
+            FormID = SelectedMoney.Form;
+            Categories = new ObservableCollection<Category>(db.ListCategories(FormID));
+            SelectedCategory = Categories[SelectedMoney.Category - 1];
             //TitleCategory = Category.CategoryName;
-            Source = ImageSource.FromStream(() => new MemoryStream(SelectedRevenue.Image));
+            Source = ImageSource.FromStream(() => new MemoryStream(SelectedMoney.Image));
             if (FormID == 1)
             {
                 Form = "Thu";
@@ -188,24 +194,27 @@ namespace QuanLiChiTieu.ViewModels
 
         private async void DeleteExecute()
         {
-            db.Delete(SelectedRevenue);
-            _pageDialogService.DisplayAlertAsync("Thông báo", "Xoá thành công", "OK");
+            
+            db.Delete(SelectedMoney);
+            await _pageDialogService.DisplayAlertAsync("Thông báo", "Xoá thành công", "OK");
             await NavigationService.GoBackAsync();
+
+
         }
 
         private void UpdateRevenue()
         {
-            SelectedRevenue.MoneyName = Name;
-            SelectedRevenue.Date = Date;
+            SelectedMoney.MoneyName = Name;
+            SelectedMoney.Date = Date;
             if (Cost < 0)
             {
                 Cost *= -1;
             }
-            SelectedRevenue.Cost = Cost;
-            SelectedRevenue.Note = Note;
-            SelectedRevenue.Category = Category.CategoryID;
-            //SelectedRevenue.Image = imageAsBytes;
-            db.Update(SelectedRevenue);
+            SelectedMoney.Cost = Cost;
+            SelectedMoney.Note = Note;
+            SelectedMoney.Category = SelectedCategory.CategoryID;
+            //SelectedMoney.Image = imageAsBytes;
+            db.Update(SelectedMoney);
             _pageDialogService.DisplayAlertAsync("Thông báo", "Cập nhật thành công", "OK");
         }
 
@@ -235,7 +244,7 @@ namespace QuanLiChiTieu.ViewModels
                     file.GetStream().CopyTo(memoryStream);
                     file.Dispose();
                     imageAsBytes = memoryStream.ToArray();
-                    SelectedRevenue.Image = imageAsBytes;
+                    SelectedMoney.Image = imageAsBytes;
                 }
                 return stream;
             });
@@ -266,7 +275,7 @@ namespace QuanLiChiTieu.ViewModels
                     file.GetStream().CopyTo(memoryStream);
                     file.Dispose();
                     imageAsBytes = memoryStream.ToArray();
-                    SelectedRevenue.Image = imageAsBytes;
+                    SelectedMoney.Image = imageAsBytes;
                 }
                 return stream;
             });

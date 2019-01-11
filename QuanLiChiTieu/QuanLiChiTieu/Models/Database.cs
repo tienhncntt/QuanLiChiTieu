@@ -18,9 +18,9 @@ namespace QuanLiChiTieu.Models
             {
                 using (_connection)
                 {
-                    //CreateTablle();
-                    //InsertDefaultCategory();
-                    //InsertDefaultForm();
+                    CreateTablle();
+                    InsertDefaultCategory();
+                    InsertDefaultForm();
                 }
             }
             catch (Exception)
