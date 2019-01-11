@@ -2,32 +2,52 @@
 <MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                   xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+                  xmlns:b="http://prismlibrary.com"
+                  xmlns:behaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
                   prism:ViewModelLocator.AutowireViewModel="True"
                   x:Class="QuanLiChiTieu.Views.MenuPage"
                   Title="Menu">
 
     <MasterDetailPage.Master>
+
         <ContentPage Title="Menu">
-            <StackLayout>
-                <StackLayout BackgroundColor="#41C09B" HeightRequest="60">
-                    <Label Text="Menu" VerticalOptions="CenterAndExpand" 
-                           HorizontalOptions="CenterAndExpand"
-                           VerticalTextAlignment="Center"
-                           HorizontalTextAlignment="Center"
-                           TextColor="White" FontSize="Large"/>
-                </StackLayout>
-                <StackLayout Padding="20">
-                <!-- TODO: // Update the Layout and add some real menu items  -->
-                    <Button Text="Thống kê" BackgroundColor="Transparent"
-                        Command="{Binding NavigationCommand}" CommandParameter="ReportTabbedPage" />
-                    <Button Text="Danh sách thu/chi" BackgroundColor="Transparent"
-                        Command="{Binding NavigationCommand}" CommandParameter="MoneyTabbedPage" />
-                <Button Text="Cài đặt" BackgroundColor="Transparent"
-                        Command="{Binding NavigationCommand}" CommandParameter="SettingPage" />
-                <Button Text="Thông tin ứng dụng" BackgroundColor="Transparent"
-                        Command="{Binding NavigationCommand}" CommandParameter="AboutPage" />
-            </StackLayout>
-            </StackLayout>
+            <ListView HasUnevenRows="True"
+                      ItemsSource="{Binding ListPage}"  
+                      SelectedItem="{Binding ChosenPage}"
+                       SeparatorColor="#41C09B">
+                <ListView.Behaviors>
+                    <behaviors:EventToCommandBehavior EventName="ItemTapped" 
+                                              Command="{Binding NavigationCommand}"
+                                              CommandParameter="{Binding ChosenPage.NameParam}"
+                                              />
+                </ListView.Behaviors>
+                <ListView.Header>
+                    <StackLayout Orientation="Horizontal" 
+                                 VerticalOptions="FillAndExpand" 
+                                 HorizontalOptions="FillAndExpand"
+                                 HeightRequest="104"
+                                 BackgroundColor="#41C09B"
+                                 >
+                        <Label Text="MENU" 
+                               TextColor="White"
+                               FontSize="Large"
+                               VerticalOptions="Center"
+                               HorizontalOptions="CenterAndExpand"
+                               HorizontalTextAlignment="Center"/>
+                    </StackLayout>
+                </ListView.Header>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout HeightRequest="30" Padding="15" Orientation="Horizontal">
+                                <Image Source="{Binding Icon}" HeightRequest="20" VerticalOptions="Center"/>
+                                <Label Text="{Binding Name}"
+                                       VerticalOptions="CenterAndExpand"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </ContentPage>
     </MasterDetailPage.Master>
     
