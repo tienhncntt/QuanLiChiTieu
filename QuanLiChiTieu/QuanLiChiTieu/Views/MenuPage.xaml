@@ -4,6 +4,7 @@
                   xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
                   xmlns:b="http://prismlibrary.com"
                   xmlns:behaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+                  xmlns:controls="clr-namespace:QuanLiChiTieu.Controls"
                   prism:ViewModelLocator.AutowireViewModel="True"
                   x:Class="QuanLiChiTieu.Views.MenuPage"
                   Title="Menu">
@@ -38,13 +39,13 @@
                 </ListView.Header>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <ViewCell>
+                        <controls:ExtendedViewCell SelectedBackgroundColor="White">
                             <StackLayout HeightRequest="30" Padding="15" Orientation="Horizontal">
                                 <Image Source="{Binding Icon}" HeightRequest="20" VerticalOptions="Center"/>
                                 <Label Text="{Binding Name}"
                                        VerticalOptions="CenterAndExpand"/>
                             </StackLayout>
-                        </ViewCell>
+                        </controls:ExtendedViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

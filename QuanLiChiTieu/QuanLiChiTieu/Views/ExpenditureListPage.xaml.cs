@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using QuanLiChiTieu.ViewModels;
+using Xamarin.Forms;
 
 namespace QuanLiChiTieu.Views
 {
@@ -7,6 +8,11 @@ namespace QuanLiChiTieu.Views
         public ExpenditureListPage()
         {
             InitializeComponent();
+        }
+
+        protected override void OnAppearing()
+        {
+            (BindingContext as ExpenditureListPageViewModel)?.ReLoad();
         }
     }
 }

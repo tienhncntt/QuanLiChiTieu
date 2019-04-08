@@ -76,6 +76,11 @@ namespace QuanLiChiTieu.ViewModels
 
         }
 
+        public void ReLoad()
+        {
+            RevenueList = new ObservableCollection<NewMoney>(db.ListNewRevenue());
+        }
+
         private async void ToAdditionPage()
         {
             var navigationParams = new NavigationParameters();

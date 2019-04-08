@@ -1,4 +1,6 @@
-﻿using Xamarin.Forms;
+﻿using Prism.Navigation;
+using QuanLiChiTieu.ViewModels;
+using Xamarin.Forms;
 
 namespace QuanLiChiTieu.Views
 {
@@ -7,8 +9,12 @@ namespace QuanLiChiTieu.Views
         public RevenueListPage()
         {
             InitializeComponent();
+            //BindingContext = new RevenueListPageViewModel();
+        }
+        protected override void OnAppearing()
+        {
+            (BindingContext as RevenueListPageViewModel)?.ReLoad();
         }
 
-        
     }
 }

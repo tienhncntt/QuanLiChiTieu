@@ -6,6 +6,7 @@
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="QuanLiChiTieu.Views.ExpenditureListPage"
              xmlns:b="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+             xmlns:controls="clr-namespace:QuanLiChiTieu.Controls"
              Title="Chi">
     <StackLayout Padding="15">
         <SearchBar Placeholder="Tìm kiếm"
@@ -44,7 +45,7 @@
             </ListView.Header>
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <ViewCell>
+                    <controls:ExtendedViewCell SelectedBackgroundColor="White">
                         <Grid Padding="15">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
@@ -71,7 +72,7 @@
                                    FontSize="Small"/>
 
                         </Grid>
-                    </ViewCell>
+                    </controls:ExtendedViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

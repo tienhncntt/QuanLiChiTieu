@@ -80,6 +80,10 @@ namespace QuanLiChiTieu.ViewModels
             await NavigationService.NavigateAsync("MoneyDetailPage", navigationParams);
 
         }
+        internal void ReLoad()
+        {
+            ExpenditureList = new ObservableCollection<NewMoney>(db.ListNewExpenditure());
+        }
 
         private async void ToAdditionPage()
         {
